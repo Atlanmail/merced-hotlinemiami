@@ -3,7 +3,7 @@ using System;
 
 public partial class Fist : Area2D
 {
-	const float POSITION_THRESHOLD = 2f;
+	const float POSITION_THRESHOLD = 2f; /// determines if the guy keeps on moving
 
 	/// <summary>
 	/// Desired offset

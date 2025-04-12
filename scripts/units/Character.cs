@@ -7,7 +7,7 @@ public partial class Character : CharacterBody2D, iMove
 	private int speed = 300;
 	
 	[Export]
-	private float poise = 0; 
+	private float poise = 100; 
 	[Export]
 	private float poiseDecayRate = 0; /// how much the health decays per second
 	
