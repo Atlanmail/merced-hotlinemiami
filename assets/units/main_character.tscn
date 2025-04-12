@@ -1,9 +1,99 @@
-[gd_scene load_steps=7 format=3 uid="uid://yk4dvrhyosg4"]
+[gd_scene load_steps=11 format=3 uid="uid://yk4dvrhyosg4"]
 
-[ext_resource type="Script" uid="uid://c8883r0e8nsen" path="res://scripts/units/Character.cs" id="1_l6bvi"]
+[ext_resource type="Script" uid="uid://bwbjxyfr5bp0v" path="res://scripts/units/MainCharacter.cs" id="1_l6bvi"]
 [ext_resource type="Texture2D" uid="uid://d350mydql1osk" path="res://art/characters/hero.jpg" id="2_n2e48"]
 [ext_resource type="Script" uid="uid://df6i82uf7lnih" path="res://scripts/controller/PlayerController.cs" id="3_x6a0n"]
 [ext_resource type="PackedScene" uid="uid://doo5bn45q67ch" path="res://assets/component/fist.tscn" id="4_l6bvi"]
+
+[sub_resource type="Animation" id="Animation_l6bvi"]
+resource_name = "left_punch"
+length = 0.433337
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftFist:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-13, -8), Vector2(-13, -23), Vector2(-13, -8)]
+}
+
+[sub_resource type="Animation" id="Animation_n2e48"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftFist:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-13, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightElbow/RightFist:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13, -8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RightElbow:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_x6a0n"]
+resource_name = "right_grab"
+length = 0.433337
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightElbow/RightFist:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(13, -8), Vector2(19.56, -8.3), Vector2(13, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightElbow:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.785398, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n2e48"]
+_data = {
+&"RESET": SubResource("Animation_n2e48"),
+&"left_punch": SubResource("Animation_l6bvi"),
+&"right_grab": SubResource("Animation_x6a0n")
+}
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4iboa"]
 animations = [{
@@ -22,7 +112,9 @@ animations = [{
 script = ExtResource("1_l6bvi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("")
+libraries = {
+&"": SubResource("AnimationLibrary_n2e48")
+}
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 1)
@@ -40,10 +132,10 @@ script = ExtResource("3_x6a0n")
 
 [node name="LeftFist" parent="." instance=ExtResource("4_l6bvi")]
 position = Vector2(-13, -8)
-desiredOffset = Vector2(-13, -8)
-speed = 250
+POSITION_THRESHOLD = null
 
-[node name="RightFist" parent="." instance=ExtResource("4_l6bvi")]
+[node name="RightElbow" type="Node2D" parent="."]
+
+[node name="RightFist" parent="RightElbow" instance=ExtResource("4_l6bvi")]
 position = Vector2(13, -8)
-desiredOffset = Vector2(13, -8)
-speed = 250
+POSITION_THRESHOLD = null
