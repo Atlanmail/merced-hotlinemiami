@@ -38,6 +38,7 @@ public partial class Character : CharacterBody2D, iMove
 		KinematicCollision2D collision = MoveAndCollide( moveDir * (float)speed * (float)delta);
 
 		/// handle collisions
+		GD.Print(collision);
 
 		if (collision != null) {
 			GodotObject body2D = collision.GetCollider();
