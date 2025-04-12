@@ -26,5 +26,9 @@ public partial class PoiseBar : ProgressBar
 			return;
 		}
 		Value = _iPoise.getPoise();
+		
+		if (Value > 0.75f) {
+			
+		}
 	}
 }
