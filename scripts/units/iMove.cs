@@ -7,6 +7,12 @@ public interface iMove
 	Speed is in pixel /s
 	*/
 	public void setSpeed(int speed);
+
+	/**
+	Attempts to get the object to face a global position
+	
+	*/
+	public void face(Vector2 globalPosition);
 	public int getSpeed();
 
 	/**

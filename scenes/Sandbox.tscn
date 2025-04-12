@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=4 uid="uid://du7fv2o3yevyi"]
+[gd_scene load_steps=9 format=4 uid="uid://du7fv2o3yevyi"]
 
 [ext_resource type="Script" uid="uid://et43tdnhysso" path="res://scripts/globals/Root.cs" id="1_3mq1s"]
 [ext_resource type="TileSet" uid="uid://bjon0v57fcjwb" path="res://assets/tileset/room_builder.tres" id="1_vn80e"]
 [ext_resource type="PackedScene" uid="uid://yk4dvrhyosg4" path="res://assets/units/main_character.tscn" id="2_n4mgf"]
 [ext_resource type="Script" uid="uid://dlno6kv6pmaax" path="res://scripts/UI/PoiseBar.cs" id="4_jm2hm"]
+[ext_resource type="Script" uid="uid://c8883r0e8nsen" path="res://scripts/units/Character.cs" id="5_jm2hm"]
+[ext_resource type="Texture2D" uid="uid://c14vyxhylwcmh" path="res://art/characters/hand.jpg" id="6_a0ubh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3mq1s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jm2hm"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_3mq1s")
@@ -32,3 +38,19 @@ offset_bottom = 69.0
 value = 30.0
 script = ExtResource("4_jm2hm")
 defaultPoise = NodePath("../../MainCharacter")
+
+[node name="PunchingBag" type="CharacterBody2D" parent="."]
+position = Vector2(215, 122)
+script = ExtResource("5_jm2hm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PunchingBag"]
+shape = SubResource("CircleShape2D_3mq1s")
+
+[node name="Sprite2D" type="Sprite2D" parent="PunchingBag"]
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("6_a0ubh")
+
+[node name="Hitbox" type="Area2D" parent="PunchingBag"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PunchingBag/Hitbox"]
+shape = SubResource("CircleShape2D_jm2hm")

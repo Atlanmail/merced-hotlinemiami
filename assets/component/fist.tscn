@@ -9,6 +9,7 @@ radius = 11.6667
 [node name="Fist" type="Area2D"]
 collision_layer = 4
 script = ExtResource("1_6nupw")
+POSITION_THRESHOLD = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.6, 0.6)
