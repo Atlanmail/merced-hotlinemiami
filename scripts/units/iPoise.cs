@@ -3,7 +3,6 @@ using System;
 
 public interface iPoise
 {
-
     /**
         Returns the current poise
         Poise should be a float from 0 to 1.
