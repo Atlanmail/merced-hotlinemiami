@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://yk4dvrhyosg4"]
+
+[ext_resource type="Script" uid="uid://c8883r0e8nsen" path="res://scripts/units/Character.cs" id="1_l6bvi"]
+[ext_resource type="Texture2D" uid="uid://d350mydql1osk" path="res://art/characters/hero.jpg" id="2_n2e48"]
+[ext_resource type="Script" uid="uid://df6i82uf7lnih" path="res://scripts/controller/PlayerController.cs" id="3_x6a0n"]
+[ext_resource type="PackedScene" uid="uid://doo5bn45q67ch" path="res://assets/component/fist.tscn" id="4_l6bvi"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4iboa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_n2e48")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w2k4y"]
+
+[node name="MainCharacter" type="CharacterBody2D"]
+script = ExtResource("1_l6bvi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.5625, 0.5625)
+sprite_frames = SubResource("SpriteFrames_4iboa")
+animation = &"new_animation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_w2k4y")
+
+[node name="CharacterController" type="Node" parent="."]
+script = ExtResource("3_x6a0n")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="LeftFist" parent="." instance=ExtResource("4_l6bvi")]
+position = Vector2(-13, -8)
+desiredOffset = Vector2(-13, -8)
+speed = 250
+
+[node name="RightFist" parent="." instance=ExtResource("4_l6bvi")]
+position = Vector2(13, -8)
+desiredOffset = Vector2(13, -8)
+speed = 250
