@@ -1,8 +1,9 @@
 using Godot;
 using System;
 
-public partial class Character : CharacterBody2D, iMove
+public partial class Character : CharacterBody2D, iMove, iPoise
 {
+	#region Variables
 	[Export]
 	private int speed = 300;
 	
@@ -13,6 +14,8 @@ public partial class Character : CharacterBody2D, iMove
 	
 	private Vector2 moveDir = new Vector2(0,0);
 	CharacterBody2D characterBody2D;
+	Fist leftFist;
+	Fist rightFist;
 
 	public int getSpeed()
 	{
@@ -22,13 +25,9 @@ public partial class Character : CharacterBody2D, iMove
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
+	#endregion
 
-
-
-	/**
-
-	*/
-
+	#region IMove
 	public void move(float x, float y)
 	{
 		moveDir = new Vector2(x,y) - Position;
@@ -39,6 +38,7 @@ public partial class Character : CharacterBody2D, iMove
 	{
 		throw new NotImplementedException();
 	}
+	#endregion IMove
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -64,8 +64,19 @@ public partial class Character : CharacterBody2D, iMove
 
 	}
 
+	public float getPoise()
+	{
+		return poise;
+	}
 
+	public void setPoise(float poise)
+	{
+		throw new NotImplementedException();
+	}
 
-
+	public void decayPoise()
+	{
+		throw new NotImplementedException();
+	}
 
 }

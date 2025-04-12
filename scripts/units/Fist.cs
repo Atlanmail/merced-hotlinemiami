@@ -3,7 +3,9 @@ using System;
 
 public partial class Fist : Area2D
 {
-	const float POSITION_THRESHOLD = 2f; /// determines if the guy keeps on moving
+	#region Variables
+	[Export]
+	float POSITION_THRESHOLD = 10f; /// determines if the guy keeps on moving
 
 	/// <summary>
 	/// Desired offset
@@ -11,19 +13,41 @@ public partial class Fist : Area2D
 
 	[Export]
 	Vector2 desiredOffset = new Vector2(0,0);
-
 	[Export]
 	int speed = 20;
 
+	[Signal]
+	public delegate void CollisionEventHandler(Node other);
+
 	Character _character;
 
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+
+	#endregion 
 	public override void _Ready()
 	{
 		
 		_character = GetParent<Character>();
 		TopLevel = true;
-		
+		this.BodyEntered += OnBodyEntered;
+
 	}
+
+	
+	#region Physics
+	private void OnBodyEntered(Node body)
+	{
+		if (body == _character) {
+			return;
+		}
+		GD.Print("Collided with " + body);
+		EmitSignal(nameof(CollisionEventHandler), body);
+	}
+
+
 	public override void _PhysicsProcess(double delta)
 	{
 		///GD.Print(moveDir);
@@ -53,4 +77,5 @@ public partial class Fist : Area2D
 	   
 
 	}
+	#endregion
 }

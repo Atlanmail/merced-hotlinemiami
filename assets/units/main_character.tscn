@@ -40,10 +40,12 @@ script = ExtResource("3_x6a0n")
 
 [node name="LeftFist" parent="." instance=ExtResource("4_l6bvi")]
 position = Vector2(-13, -8)
+POSITION_THRESHOLD = 5.0
 desiredOffset = Vector2(-13, -8)
-speed = 250
+speed = 400
 
 [node name="RightFist" parent="." instance=ExtResource("4_l6bvi")]
 position = Vector2(13, -8)
+POSITION_THRESHOLD = 5.0
 desiredOffset = Vector2(13, -8)
-speed = 250
+speed = 400

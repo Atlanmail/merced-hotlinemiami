@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://du7fv2o3yevyi"]
 
-[ext_resource type="Script" uid="uid://et43tdnhysso" path="res://scripts/globals/Global.cs" id="1_3mq1s"]
+[ext_resource type="Script" uid="uid://et43tdnhysso" path="res://scripts/globals/Root.cs" id="1_3mq1s"]
 [ext_resource type="TileSet" uid="uid://bjon0v57fcjwb" path="res://assets/tileset/room_builder.tres" id="1_vn80e"]
 [ext_resource type="PackedScene" uid="uid://yk4dvrhyosg4" path="res://assets/units/main_character.tscn" id="2_n4mgf"]
 [ext_resource type="Script" uid="uid://dlno6kv6pmaax" path="res://scripts/UI/PoiseBar.cs" id="4_jm2hm"]
@@ -25,9 +25,10 @@ position = Vector2(181, 220)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PoiseBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("defaultPoise")]
-offset_left = 32.0
+offset_left = 36.0
 offset_top = 42.0
-offset_right = 36.0
+offset_right = 40.0
 offset_bottom = 69.0
+value = 30.0
 script = ExtResource("4_jm2hm")
 defaultPoise = NodePath("../../MainCharacter")
