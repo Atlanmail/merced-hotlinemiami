@@ -17,12 +17,15 @@ position = Vector2(181, 220)
 
 [node name="Enemy" parent="." instance=ExtResource("3_njv43")]
 position = Vector2(680, 61)
+poise = 100.0
 
 [node name="Enemy2" parent="." instance=ExtResource("3_njv43")]
 position = Vector2(705, 117)
+poise = 100.0
 
 [node name="Enemy3" parent="." instance=ExtResource("3_njv43")]
 position = Vector2(612, 45)
+poise = 100.0
 
 [node name="Table" parent="." instance=ExtResource("4_uewm4")]
 position = Vector2(632, 96)
