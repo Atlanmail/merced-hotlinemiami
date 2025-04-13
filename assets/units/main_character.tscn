@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://yk4dvrhyosg4"]
+[gd_scene load_steps=16 format=3 uid="uid://yk4dvrhyosg4"]
 
 [ext_resource type="Script" uid="uid://bwbjxyfr5bp0v" path="res://scripts/units/MainCharacter.cs" id="1_l6bvi"]
 [ext_resource type="Texture2D" uid="uid://d350mydql1osk" path="res://art/characters/hero.jpg" id="2_n2e48"]
@@ -166,6 +166,9 @@ position = Vector2(13, -8)
 
 [node name="AnimatedSprite2D" parent="RightElbow/RightFist" index="1"]
 scale = Vector2(0.7, 0.7)
+
+[node name="Hurtbox" parent="." instance=ExtResource("5_n2e48")]
+scale = Vector2(1.67268, 0.758996)
 
 [editable path="LeftFist"]
 [editable path="RightElbow/RightFist"]

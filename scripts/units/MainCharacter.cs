@@ -31,9 +31,9 @@ public partial class MainCharacter : Character {
 		
 	}
 
-    protected override void onCollide(KinematicCollision2D collision)
-    {
-        GodotObject body2D = collision.GetCollider();
+	protected override void onCollide(KinematicCollision2D collision)
+	{
+		GodotObject body2D = collision.GetCollider();
 		if (body2D is IHurtbox) {
 			if (body2D is TileMapLayer) {
 				TileMapLayer mapLayer= (TileMapLayer)body2D;
@@ -42,7 +42,7 @@ public partial class MainCharacter : Character {
 				mapLayer.EraseCell(tileCoords); // 0 is layer index
 			}
 		}
-    }
+	}
 
 	
 

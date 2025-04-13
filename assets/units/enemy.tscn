@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d3tj2p8wha3af"]
+[gd_scene load_steps=19 format=3 uid="uid://d3tj2p8wha3af"]
 
 [ext_resource type="Script" uid="uid://bwbjxyfr5bp0v" path="res://scripts/units/MainCharacter.cs" id="1_g7ham"]
 [ext_resource type="Texture2D" uid="uid://cdqrjsw4533s1" path="res://art/characters/Bad guy spritesheet.png" id="2_3vau8"]
@@ -186,7 +186,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_3vau8")
 step = 0.1
 
 [node name="Hurtbox" parent="." instance=ExtResource("6_l0osn")]
-scale = Vector2(1.49724, 1.14131)
+scale = Vector2(1.56297, 0.758347)
 
 [editable path="LeftFist"]
 [editable path="RightElbow/RightFist"]
