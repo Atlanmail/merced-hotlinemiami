@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://yk4dvrhyosg4"]
+[gd_scene load_steps=12 format=3 uid="uid://yk4dvrhyosg4"]
 
 [ext_resource type="Script" uid="uid://bwbjxyfr5bp0v" path="res://scripts/units/MainCharacter.cs" id="1_l6bvi"]
 [ext_resource type="Texture2D" uid="uid://d350mydql1osk" path="res://art/characters/hero.jpg" id="2_n2e48"]
 [ext_resource type="Script" uid="uid://df6i82uf7lnih" path="res://scripts/controller/PlayerController.cs" id="3_x6a0n"]
 [ext_resource type="PackedScene" uid="uid://doo5bn45q67ch" path="res://assets/component/fist.tscn" id="4_l6bvi"]
+[ext_resource type="PackedScene" uid="uid://behct2yx34lfw" path="res://assets/component/hurtboxSquare.tscn" id="5_n2e48"]
 
 [sub_resource type="Animation" id="Animation_n2e48"]
 length = 0.001
@@ -137,6 +138,8 @@ position = Vector2(-13, -8)
 
 [node name="RightFist" parent="RightElbow" instance=ExtResource("4_l6bvi")]
 position = Vector2(13, -8)
+
+[node name="Hurtbox" parent="." instance=ExtResource("5_n2e48")]
 
 [editable path="LeftFist"]
 [editable path="RightElbow/RightFist"]

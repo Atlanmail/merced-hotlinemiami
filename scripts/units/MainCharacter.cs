@@ -93,6 +93,9 @@ public partial class MainCharacter : Character {
 		}
 
 		Node owner = (node as IHurtbox).getHurtboxOwner();
+		if (owner == this) {
+			return;
+		}
 
 		if (owner == null) {
 			onAnimationEnd("left_punch");

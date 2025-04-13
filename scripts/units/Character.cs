@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox
+public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitboxOwner
 {
 
 	protected enum CharacterState
@@ -25,7 +25,8 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox
 	protected CharacterState _state = CharacterState.Idle;
 
 	[Export]
-	private float poise = 100; 
+	private float MAX_POISE = 100f;
+	private float poise = 0; 
 	[Export]
 	private float poiseDecayRate = 0; /// how much the health decays per second
 	
@@ -118,14 +119,17 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox
 		this.poise = poise;
 	}
 
-	public void decayPoise()
+	public void decayPoise(double delta)
 	{
-		throw new NotImplementedException();
+		if (this.poise > 0) {
+			this.poise -= (float)delta * this.poiseDecayRate;
+			this.poise = Mathf.Clamp(this.poise, 0,MAX_POISE);
+		}	
 	}
 	
 	public void addPoise(float poise) {
 		this.poise += poise;
-		this.poise = Mathf.Clamp(this.poise, 0,100);
+		this.poise = Mathf.Clamp(this.poise, 0,MAX_POISE);
 
 		GD.Print(this.poise);
 	}
