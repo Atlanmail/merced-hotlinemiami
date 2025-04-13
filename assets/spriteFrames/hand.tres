@@ -1,14 +1,18 @@
-[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://dd0bch5dvc6ns"]
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dd0bch5dvc6ns"]
 
-[ext_resource type="Texture2D" uid="uid://c14vyxhylwcmh" path="res://art/characters/hand.jpg" id="1_xm34o"]
+[ext_resource type="Texture2D" uid="uid://b6dtklqprmu3e" path="res://art/items/Objects.png" id="1_fb72v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqj8g"]
+atlas = ExtResource("1_fb72v")
+region = Rect2(192, 0, 64, 64)
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_xm34o")
+"texture": SubResource("AtlasTexture_uqj8g")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }]

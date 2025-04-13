@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitboxOwner
+public partial class Character : CharacterBody2D, iMove, iPoise, IHitboxOwner
 {
 
 	protected enum CharacterState
@@ -28,19 +28,23 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 	private float MAX_POISE = 100f;
 	private float poise = 0; 
 	[Export]
-	private float poiseDecayRate = 0; /// how much the health decays per second
+	private float POISE_DECAYRATE = 0; /// how much the health decays per second
 	
 	private Vector2 moveDir = new Vector2(0,0);
 	private Vector2 faceAtPoint;
-	CharacterBody2D characterBody2D;
 	
 	List<IHurtbox> hurtboxes = new List<IHurtbox>();
 	bool hurtboxEnabled = false;
 
+	private Vector2 _velocity;
+	protected Vector2 velocity {
+		get { return _velocity; }
+	}
+
 	#endregion
 
 	protected virtual void SwitchState(CharacterState state) {
-
+		this._state = state;
 	}
 
 
@@ -49,6 +53,8 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 	{
 		base._Ready();
 		faceAtPoint = Position + Vector2.Up* 3;
+		this.prevPosition = GlobalPosition;
+		loadHurtboxes();
 	}
 
 
@@ -80,8 +86,15 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 	}
 	#endregion IMove
 
+	Vector2 prevPosition;
 	public override void _PhysicsProcess(double delta)
 	{
+		
+		runPhysics(delta);
+		runPostPhysics(delta);
+	}
+
+	protected virtual void runPhysics(double delta) {
 		///GD.Print(moveDir);
 		KinematicCollision2D collision = MoveAndCollide( moveDir * (float)speed * (float)delta);
 		LookAt(faceAtPoint);
@@ -91,21 +104,19 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 		;
 
 		if (collision != null) {
-			GodotObject body2D = collision.GetCollider();
-			if (body2D is IHurtbox) {
-				if (body2D is TileMapLayer) {
-					TileMapLayer mapLayer= (TileMapLayer)body2D;
-					Vector2 collisionPos = collision.GetPosition() + moveDir * 5f; /// add a slight offset to gurantee position
-					Vector2I tileCoords = mapLayer.LocalToMap(collisionPos);
-
-					mapLayer.EraseCell(tileCoords); // 0 is layer index
-				}
-			}
+			
+			onCollide(collision);
 		}
+	}
 
-		
-	   
+	protected virtual void onCollide(KinematicCollision2D collision2D) {
+		/// TODO IMPLEMENT SLIDE
+	}
 
+	protected virtual void runPostPhysics(double delta) {
+		this.decayPoise(delta);
+		this._velocity = (GlobalPosition - prevPosition)/(float)delta;
+		this.prevPosition = GlobalPosition;
 	}
 
 	#region IPoise
@@ -114,20 +125,21 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 		return poise;
 	}
 
-	public void setPoise(float poise)
+	public virtual void setPoise(float poise)
 	{
-		this.poise = poise;
+		this.poise = 0;
+		this.addPoise(poise);
 	}
 
-	public void decayPoise(double delta)
+	public virtual void decayPoise(double delta)
 	{
 		if (this.poise > 0) {
-			this.poise -= (float)delta * this.poiseDecayRate;
+			this.poise -= (float)delta * this.POISE_DECAYRATE;
 			this.poise = Mathf.Clamp(this.poise, 0,MAX_POISE);
 		}	
 	}
 	
-	public void addPoise(float poise) {
+	public virtual void addPoise(float poise) {
 		this.poise += poise;
 		this.poise = Mathf.Clamp(this.poise, 0,MAX_POISE);
 
@@ -136,6 +148,16 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 	#endregion
 
 	#region IHurtbox
+
+	protected void loadHurtboxes() {
+		foreach (Node hurtbox in this.GetChildren()) {
+			if (hurtbox is IHurtbox) {
+				hurtboxes.Add((IHurtbox)hurtbox);
+			}
+		}
+
+		enable();
+	}
 	public Node getHurtboxOwner()
 	{
 		return this;
@@ -143,7 +165,6 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 
 	public void enable()
 	{	
-		this.hurtboxEnabled = true;
 		foreach (IHurtbox hurtbox in this.hurtboxes) {
 			hurtbox.enable();
 		}
@@ -151,7 +172,6 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 
 	public void disable()
 	{
-		this.hurtboxEnabled = false;
 		foreach (IHurtbox hurtbox in this.hurtboxes) {
 			hurtbox.disable();
 		}

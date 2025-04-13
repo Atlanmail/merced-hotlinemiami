@@ -25,20 +25,21 @@ script = ExtResource("4_w8s17")
 
 [node name="MainCharacter" parent="." instance=ExtResource("2_n4mgf")]
 position = Vector2(181, 220)
-poise = 0.0
-poiseDecayRate = 50.0
+POISE_DECAYRATE = 40.0
 
 [node name="Enemy" parent="." instance=ExtResource("4_a0ubh")]
 position = Vector2(652, 212)
+POISE_DECAYRATE = 5.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="PoiseBar" parent="CanvasLayer" node_paths=PackedStringArray("defaultCharacterPoise") instance=ExtResource("8_48n3s")]
-offset_left = 49.0
-offset_top = 1.0
-offset_right = 53.0
-offset_bottom = 28.0
-defaultCharacterPoise = NodePath("../../MainCharacter")
+[node name="PoiseBar" parent="CanvasLayer" instance=ExtResource("8_48n3s")]
+offset_left = 59.0
+offset_top = 58.0
+offset_right = 60.0
+offset_bottom = 186.0
+value = 50.0
+fill_mode = 3
 
 [node name="PunchingBag" parent="." instance=ExtResource("6_4iboa")]
 position = Vector2(215, 122)
