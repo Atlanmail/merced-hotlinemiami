@@ -3,6 +3,8 @@ using System;
 
 public partial class EnemyController : Node
 {
+	[Export]
+	public bool Enabled = true;
 	private static float AGGRO_RADIUS = 200f;
 
 
@@ -24,6 +26,9 @@ public partial class EnemyController : Node
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (!Enabled) {
+			return;
+		}
 		Vector2 playerGlobalPos = PlayerController.MainCharacter.Position;
 		///GD.Print(playerGlobalPos - _character.Position);
 		if ((playerGlobalPos - _character.Position).Length() < AGGRO_RADIUS) {

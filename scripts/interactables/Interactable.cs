@@ -4,6 +4,7 @@ using System.Net;
 
 public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 {
+	#region Variables
 	[Export]
 	public float MASS; 
 	[Export]
@@ -19,7 +20,9 @@ public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 	protected Vector2 velocity {
 		get { return _velocity; }
 	}
+	#endregion
 
+	#region State Machine
 	protected enum InteractableState {
 		Disabled,
 		Idle,
@@ -70,12 +73,15 @@ public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 
 		
 	}
+	#endregion
 	public override void _Ready()
 	{
 		base._Ready();
 		SwitchState(InteractableState.Idle);
 		
 	}
+
+	#region IGrabbable
 	public ThrowData GetThrowData()
 	{
 		return new ThrowData(MASS, THROW_VELOCITY);
@@ -101,6 +107,27 @@ public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 		return true;
 	}
 
+	/**
+	 * Called when the object is released, meaning it is dropped or something along the lines
+	 */
+	public void Release()
+	{
+		throw new NotImplementedException();
+	}
+
+/**
+	 * Throws the object in the direction of the target
+	 * @param target the global position to throw towards
+	 */
+	public void Throw(Vector2 target)
+	{
+		_velocity = _velocity*0.5f + (target - GlobalPosition).Normalized() * THROW_VELOCITY;
+
+		this.GlobalPosition = GlobalPosition + (target - GlobalPosition).Normalized() * 35f; /// slight offset to prevent self collisions
+		this.SwitchState(InteractableState.Thrown);
+		
+	}
+	#endregion
 	/**
 	Behaves similarly to a throw without being picked up
 	*/
@@ -152,26 +179,7 @@ public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 		SwitchState(InteractableState.Idle);
 	}
 
-	/**
-	 * Called when the object is released, meaning it is dropped or something along the lines
-	 */
-	public void Release()
-	{
-		throw new NotImplementedException();
-	}
-
-/**
-	 * Throws the object in the direction of the target
-	 * @param target the global position to throw towards
-	 */
-	public void Throw(Vector2 target)
-	{
-		_velocity = _velocity*0.5f + (target - GlobalPosition).Normalized() * THROW_VELOCITY;
-
-		this.GlobalPosition = GlobalPosition + (target - GlobalPosition).Normalized() * 35f; /// slight offset to prevent self collisions
-		this.SwitchState(InteractableState.Thrown);
-		
-	}
+	
 
 	public Node getHurtboxOwner()
 	{
