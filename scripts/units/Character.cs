@@ -8,10 +8,13 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox
 	protected enum CharacterState
 	{
 		Idle,
+		Unsteady,
 		Walking,
 		AttackingV1,
 		AttackingV2,
-		Charging
+		Charging,
+		Grabbing,
+		Grabbed
 	}
 
 
@@ -89,11 +92,13 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox
 		if (collision != null) {
 			GodotObject body2D = collision.GetCollider();
 			if (body2D is IHurtbox) {
-				TileMapLayer mapLayer= (TileMapLayer)body2D;
-				Vector2 collisionPos = collision.GetPosition() + moveDir * 5f; /// add a slight offset to gurantee position
-				Vector2I tileCoords = mapLayer.LocalToMap(collisionPos);
+				if (body2D is TileMapLayer) {
+					TileMapLayer mapLayer= (TileMapLayer)body2D;
+					Vector2 collisionPos = collision.GetPosition() + moveDir * 5f; /// add a slight offset to gurantee position
+					Vector2I tileCoords = mapLayer.LocalToMap(collisionPos);
 
-				mapLayer.EraseCell(tileCoords); // 0 is layer index
+					mapLayer.EraseCell(tileCoords); // 0 is layer index
+				}
 			}
 		}
 
@@ -120,8 +125,9 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox
 	
 	public void addPoise(float poise) {
 		this.poise += poise;
-		GD.Print("Added poise");
-		this.poise = Mathf.Clamp(this.poise, 0,1);
+		this.poise = Mathf.Clamp(this.poise, 0,100);
+
+		GD.Print(this.poise);
 	}
 	#endregion
 

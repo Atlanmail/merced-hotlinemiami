@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dooeumkq6t0sq"]
+
+[ext_resource type="Theme" uid="uid://ow76ww0coso" path="res://assets/colorThemes/poise_bar.tres" id="1_0lsw6"]
+[ext_resource type="Script" uid="uid://dlno6kv6pmaax" path="res://scripts/UI/PoiseBar.cs" id="2_i0em0"]
+
+[node name="ProgressBar" type="ProgressBar"]
+offset_right = 4.0
+offset_bottom = 27.0
+scale = Vector2(25.96, 1)
+pivot_offset = Vector2(1.90903, 12)
+theme = ExtResource("1_0lsw6")
+show_percentage = false
+script = ExtResource("2_i0em0")

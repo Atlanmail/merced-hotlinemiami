@@ -1,16 +1,17 @@
-[gd_scene load_steps=22 format=4 uid="uid://du7fv2o3yevyi"]
+[gd_scene load_steps=21 format=4 uid="uid://du7fv2o3yevyi"]
 
 [ext_resource type="TileSet" uid="uid://bjon0v57fcjwb" path="res://assets/tileset/room_builder.tres" id="1_vn80e"]
 [ext_resource type="PackedScene" uid="uid://yk4dvrhyosg4" path="res://assets/units/main_character.tscn" id="2_n4mgf"]
 [ext_resource type="Script" uid="uid://bwbjxyfr5bp0v" path="res://scripts/units/MainCharacter.cs" id="4_48n3s"]
-[ext_resource type="Script" uid="uid://dlno6kv6pmaax" path="res://scripts/UI/PoiseBar.cs" id="4_jm2hm"]
 [ext_resource type="Script" uid="uid://dvj38a56xot1l" path="res://scripts/interactables/Buildings.cs" id="4_w8s17"]
 [ext_resource type="Texture2D" uid="uid://d350mydql1osk" path="res://art/characters/hero.jpg" id="5_fhxv8"]
 [ext_resource type="Script" uid="uid://c8883r0e8nsen" path="res://scripts/units/Character.cs" id="5_jm2hm"]
 [ext_resource type="Texture2D" uid="uid://c14vyxhylwcmh" path="res://art/characters/hand.jpg" id="6_a0ubh"]
 [ext_resource type="Script" uid="uid://dxix1g37alm8x" path="res://scripts/controller/EnemyController.cs" id="6_xw5yf"]
 [ext_resource type="PackedScene" uid="uid://doo5bn45q67ch" path="res://assets/component/fist.tscn" id="7_n6hjk"]
-[ext_resource type="Script" uid="uid://bcsfogtiyiscq" path="res://scripts/units/Hitbox.cs" id="8_4iboa"]
+[ext_resource type="Script" uid="uid://bcsfogtiyiscq" path="res://scripts/components/Hitbox.cs" id="8_4iboa"]
+[ext_resource type="PackedScene" uid="uid://dooeumkq6t0sq" path="res://assets/component/poise_bar.tscn" id="8_48n3s"]
+[ext_resource type="PackedScene" uid="uid://d0t8mdhm2ccd7" path="res://assets/interactable/table.tscn" id="12_fhxv8"]
 
 [sub_resource type="Animation" id="Animation_n2e48"]
 length = 0.001
@@ -115,13 +116,6 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w2k4y"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vn80e"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mq1s"]
-bg_color = Color(1, 1, 1, 1)
-shadow_offset = Vector2(12, 25)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_3mq1s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jm2hm"]
@@ -147,6 +141,7 @@ position = Vector2(181, 220)
 position = Vector2(652, 212)
 script = ExtResource("4_48n3s")
 speed = 150
+poise = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy"]
 libraries = {
@@ -175,38 +170,17 @@ position = Vector2(-13, -8)
 [node name="RightFist" parent="Enemy/RightElbow" instance=ExtResource("7_n6hjk")]
 position = Vector2(13, -8)
 
-[node name="PoiseBar" type="ProgressBar" parent="Enemy" node_paths=PackedStringArray("defaultPoise")]
-modulate = Color(0, 0.649306, 0.312909, 1)
-offset_left = -20.0
-offset_top = -30.0
-offset_right = 92.0
-offset_bottom = -17.0
-scale = Vector2(0.344059, 0.867569)
-theme_override_styles/background = SubResource("StyleBoxFlat_vn80e")
-theme_override_styles/fill = SubResource("StyleBoxFlat_3mq1s")
-max_value = 1.0
-step = 0.1
-value = 0.5
-show_percentage = false
-script = ExtResource("4_jm2hm")
-defaultPoise = NodePath("../../MainCharacter")
+[node name="PoiseBar" parent="Enemy" instance=ExtResource("8_48n3s")]
+offset_left = -2.0
+offset_top = -33.0
+offset_right = 2.0
+offset_bottom = -6.0
+scale = Vector2(13.985, 0.505302)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="PoiseBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("defaultPoise")]
-modulate = Color(0, 0.649306, 0.312909, 1)
-offset_left = 21.0
-offset_top = 142.0
-offset_right = 133.0
-offset_bottom = 155.0
-theme_override_styles/background = SubResource("StyleBoxFlat_vn80e")
-theme_override_styles/fill = SubResource("StyleBoxFlat_3mq1s")
-max_value = 1.0
-step = 0.1
-value = 0.5
-show_percentage = false
-script = ExtResource("4_jm2hm")
-defaultPoise = NodePath("../../MainCharacter")
+[node name="PoiseBar" parent="CanvasLayer" node_paths=PackedStringArray("defaultCharacterPoise") instance=ExtResource("8_48n3s")]
+defaultCharacterPoise = NodePath("../../MainCharacter")
 
 [node name="PunchingBag" type="CharacterBody2D" parent="."]
 position = Vector2(215, 122)
@@ -225,6 +199,8 @@ script = ExtResource("8_4iboa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PunchingBag/Hitbox"]
 shape = SubResource("CircleShape2D_jm2hm")
+
+[node name="Table" parent="." instance=ExtResource("12_fhxv8")]
 
 [editable path="Enemy/LeftFist"]
 [editable path="Enemy/RightElbow/RightFist"]

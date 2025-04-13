@@ -8,6 +8,7 @@ public partial class MainCharacter : Character {
 
 	Hitbox leftFist;
 	Hitbox rightFist;
+	bool isGrabbing = false;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -44,6 +45,8 @@ public partial class MainCharacter : Character {
 	{
 		_animationPlayer.ClearQueue();
 		_animationPlayer.Play("right_grab");
+		this.SwitchState(CharacterState.AttackingV2);
+		rightFist.enable();
 	}
 	private void onAnimationEnd(StringName myString) {
 
@@ -56,11 +59,21 @@ public partial class MainCharacter : Character {
 
 		_animationPlayer.ClearQueue();
 		_animationPlayer.Play("RESET");
-		this.SwitchState(CharacterState.Idle);
+		
+		if (this.isGrabbing == true) {
+			this.SwitchState(CharacterState.Grabbing);
+		}
+		else {
+			this.SwitchState(CharacterState.Idle);
+		}
 	}
 
 	private void onLeftHit(Node node) {
 		if (_state != CharacterState.AttackingV1) {
+			return;
+		}
+
+		if (this == node) {
 			return;
 		}
 		if (node is not IHurtbox) {
@@ -75,8 +88,9 @@ public partial class MainCharacter : Character {
 			return;
 		}
 
+
 		if (owner is iPoise) {
-			(owner as iPoise).addPoise(0.3f);
+			(owner as iPoise).addPoise(30f);
 		}
 
 		onAnimationEnd("left_punch");
@@ -85,6 +99,26 @@ public partial class MainCharacter : Character {
 	}
 
 	private void onRightGrab(Node node) {
-		throw new NotImplementedException("Right grab not implemented yet");
+		if (_state != CharacterState.AttackingV2) {
+			return;
+		}
+
+		if (this == node) {
+			return;
+		}
+		
+
+		Node owner = (node as IHurtbox).getHurtboxOwner();
+		if (node is not IHurtbox || owner == null) {
+			onAnimationEnd("right_grab");
+			return;
+		}
+
+		if (owner is iGrabbable) {
+			(owner as iGrabbable).Grab(rightFist);
+			this.isGrabbing = true;
+		}
+
+		onAnimationEnd("right_grab");
 	}
 }
