@@ -38,9 +38,9 @@ public interface iGrabbable
     public void Release();
 
     /**
-    Puts the object in a throw state 
+    Puts the object in a throw state towards a global position
     */
-    public void Throw();
+    public void Throw(Vector2 target);
     /**
         Returns the throwData for calculations
     */

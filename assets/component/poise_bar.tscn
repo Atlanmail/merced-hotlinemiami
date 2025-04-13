@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dooeumkq6t0sq"]
+[gd_scene load_steps=3 format=3 uid="uid://cbjh68mlkf2cu"]
 
 [ext_resource type="Theme" uid="uid://ow76ww0coso" path="res://assets/colorThemes/poise_bar.tres" id="1_0lsw6"]
 [ext_resource type="Script" uid="uid://dlno6kv6pmaax" path="res://scripts/UI/PoiseBar.cs" id="2_i0em0"]

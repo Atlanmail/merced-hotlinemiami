@@ -1,18 +1,17 @@
 using Godot;
 using System;
 
-
-/**/
-
 public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 {
 	[Export]
-	public float mass; 
+	public float MASS; 
 	[Export]
-	public float throwVelocity;
+	public float THROW_VELOCITY = 200f; // pixels per second 
 
-	private Node2D _owner; /// who controls this transform currently
-	private InteractableState _state = InteractableState.Idle;
+	private Node2D _grabber; /// who controls this transform currently
+	private InteractableState _state;
+
+	private Vector2 velocity;
 
 	protected enum InteractableState {
 		Disabled,
@@ -23,6 +22,7 @@ public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 
 	private void SwitchState(InteractableState newState) {
 		if (_state == newState) {
+			GD.PushWarning("State is already " + newState);
 			return;
 		}
 		_state = newState;
@@ -30,14 +30,28 @@ public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 		this.CollisionLayer = 0;
 		this.CollisionMask = 0;
 		if (_state == InteractableState.Idle) {
+			this._grabber = null;
 			this.SetCollisionLayerValue(4, true);
+			this.SetCollisionLayerValue(1, true);
+
 			this.SetCollisionMaskValue(1, true);
 			this.SetCollisionMaskValue(2, true);
-			this.SetCollisionMaskValue(3, false);
+			this.SetCollisionMaskValue(3, true);
 			this.SetCollisionMaskValue(4, true);
 		}
 
 		else if (_state == InteractableState.Grabbed) {
+			this.SetCollisionMaskValue(1, false);
+			this.SetCollisionMaskValue(2, false);
+			this.SetCollisionMaskValue(3, false);
+			this.SetCollisionMaskValue(4, false);
+		}
+		else if (_state == InteractableState.Thrown) {
+			this.SetCollisionLayerValue(4, true);
+			this.SetCollisionMaskValue(1, true);
+			this.SetCollisionMaskValue(2, true);
+			this.SetCollisionMaskValue(3, true);
+			this.SetCollisionMaskValue(4, true);
 		}
 
 		
@@ -50,7 +64,7 @@ public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 	}
 	public ThrowData GetThrowData()
 	{
-		return new ThrowData(mass, throwVelocity);
+		return new ThrowData(MASS, THROW_VELOCITY);
 	}
 
 	public void Grab(Node2D grabPoint)
@@ -61,7 +75,7 @@ public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 		}
 
 		SwitchState(InteractableState.Grabbed);
-		_owner = grabPoint;
+		_grabber = grabPoint;
 
 	}
 
@@ -81,12 +95,33 @@ public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 		throw new NotImplementedException();
 	}
 
+	private Vector2 prevPosition = Vector2.Zero;
 	public override void _PhysicsProcess(double delta)
 	{
+
 		if (_state == InteractableState.Grabbed) { /// TODO, ADD MORE NATURAL MOTION
 			
-			Position = _owner.GlobalPosition;
+			Position = _grabber.GlobalPosition;
+			velocity = (GlobalPosition - prevPosition);
+			velocity = velocity/ (float)delta;	
+			GD.Print(velocity);
 		}
+
+		else if (_state == InteractableState.Thrown) {
+			var collision = MoveAndCollide(velocity * (float)delta);
+			if (collision != null)
+			{
+				onCollide((Node)collision.GetCollider());
+			}
+		}
+		prevPosition = GlobalPosition;
+	}
+
+	protected virtual void onCollide(Node node) {
+		this.velocity = Vector2.Zero;
+		SwitchState(InteractableState.Idle);
+
+
 	}
 
 	public void Release()
@@ -94,9 +129,17 @@ public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 		throw new NotImplementedException();
 	}
 
-	public void Throw()
+/**
+	 * Throws the object in the direction of the target
+	 * @param target the global position to throw towards
+	 */
+	public void Throw(Vector2 target)
 	{
-		throw new NotImplementedException();
+		velocity = velocity*0.5f + (target - GlobalPosition).Normalized() * THROW_VELOCITY;
+
+		this.GlobalPosition = GlobalPosition + (target - GlobalPosition).Normalized() * 50f; /// slight wwwoffset to prevent self collisions
+		this.SwitchState(InteractableState.Thrown);
+		
 	}
 
 	public Node getHurtboxOwner()
@@ -106,16 +149,16 @@ public partial class Interactable : CharacterBody2D, iGrabbable, IHurtbox
 
 	public void enable()
 	{
-		_state = InteractableState.Idle;
+		SwitchState(InteractableState.Idle);
 	}
 
 	public void disable()
 	{
-		_state = InteractableState.Disabled;
+		SwitchState(InteractableState.Disabled);
 	}
 
 	public bool isEnabled()
 	{
-		return (_state != InteractableState.Disabled);
+		return _state != InteractableState.Disabled;
 	}
 }

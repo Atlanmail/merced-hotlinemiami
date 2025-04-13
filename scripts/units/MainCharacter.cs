@@ -8,7 +8,7 @@ public partial class MainCharacter : Character {
 
 	Hitbox leftFist;
 	Hitbox rightFist;
-	bool isGrabbing = false;
+	iGrabbable isGrabbing;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -43,10 +43,21 @@ public partial class MainCharacter : Character {
 
 	public void right_action()
 	{
-		_animationPlayer.ClearQueue();
-		_animationPlayer.Play("right_grab");
-		this.SwitchState(CharacterState.AttackingV2);
-		rightFist.enable();
+		if (this.isGrabbing != null) {
+			_animationPlayer.ClearQueue();
+			_animationPlayer.Play("right_grab");
+			this.SwitchState(CharacterState.AttackingV2);
+			this.isGrabbing.Throw(GetGlobalMousePosition()); /// apparently we face our butt to the enemy
+
+			this.isGrabbing = null;
+		}
+		else {
+			_animationPlayer.ClearQueue();
+			_animationPlayer.Play("right_grab");
+			this.SwitchState(CharacterState.AttackingV2);
+			rightFist.enable();
+		}
+		
 	}
 	private void onAnimationEnd(StringName myString) {
 
@@ -60,7 +71,7 @@ public partial class MainCharacter : Character {
 		_animationPlayer.ClearQueue();
 		_animationPlayer.Play("RESET");
 		
-		if (this.isGrabbing == true) {
+		if (this.isGrabbing == null) {
 			this.SwitchState(CharacterState.Grabbing);
 		}
 		else {
@@ -116,7 +127,7 @@ public partial class MainCharacter : Character {
 
 		if (owner is iGrabbable) {
 			(owner as iGrabbable).Grab(rightFist);
-			this.isGrabbing = true;
+			this.isGrabbing = (iGrabbable)owner;
 		}
 
 		onAnimationEnd("right_grab");
