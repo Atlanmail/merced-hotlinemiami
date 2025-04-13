@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Security;
 
 public partial class Character : CharacterBody2D, iMove, iPoise, IHitboxOwner
 {
@@ -9,26 +10,29 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHitboxOwner
 	{
 		Idle,
 		Unsteady,
-		Walking,
+		Struck,
+		Thrown,
 		AttackingV1,
 		AttackingV2,
 		Charging,
 		Grabbing,
-		Grabbed
+		Grabbed, 
+		Dead
 	}
 
 
 	#region Variables
 	[Export]
-	private int speed = 300;
+	protected int DEFAULT_SPEED = 300;
+	private int speed;
 	
 	protected CharacterState _state = CharacterState.Idle;
 
 	[Export]
-	private float MAX_POISE = 100f;
-	private float poise = 0; 
+	protected float MAX_POISE = 100f;
+	protected float poise = 0; 
 	[Export]
-	private float POISE_DECAYRATE = 0; /// how much the health decays per second
+	protected float POISE_DECAYRATE = 0; /// how much the health decays per second
 	
 	private Vector2 moveDir = new Vector2(0,0);
 	private Vector2 faceAtPoint;
@@ -39,6 +43,9 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHitboxOwner
 	private Vector2 _velocity;
 	protected Vector2 velocity {
 		get { return _velocity; }
+		set{
+			_velocity = value;
+		}
 	}
 
 	#endregion
@@ -52,6 +59,7 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHitboxOwner
 	public override void _Ready()
 	{
 		base._Ready();
+		this.setSpeed(DEFAULT_SPEED);
 		faceAtPoint = Position + Vector2.Up* 3;
 		this.prevPosition = GlobalPosition;
 		loadHurtboxes();
@@ -96,6 +104,10 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHitboxOwner
 
 	protected virtual void runPhysics(double delta) {
 		///GD.Print(moveDir);
+		walk(delta);
+	}
+
+	protected virtual void walk(double delta) {
 		KinematicCollision2D collision = MoveAndCollide( moveDir * (float)speed * (float)delta);
 		LookAt(faceAtPoint);
 		this.Rotation = this.Rotation + Mathf.DegToRad(90);
@@ -156,21 +168,21 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHitboxOwner
 			}
 		}
 
-		enable();
+		enableHurtboxes();
 	}
 	public Node getHurtboxOwner()
 	{
 		return this;
 	}
 
-	public void enable()
+	public void enableHurtboxes()
 	{	
 		foreach (IHurtbox hurtbox in this.hurtboxes) {
 			hurtbox.enable();
 		}
 	}
 
-	public void disable()
+	public void disableHurtboxes()
 	{
 		foreach (IHurtbox hurtbox in this.hurtboxes) {
 			hurtbox.disable();
