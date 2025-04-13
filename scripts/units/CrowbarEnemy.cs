@@ -9,14 +9,11 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 	AnimationPlayer _animationPlayer;
 
 	Node2D grabber; /// who controls this transform currently;
-	[Export]
+	
 	public float THROW_DAMAGE = 80f; /// how much damage the object does when thrown
-	[Export]
 	public float CROWBAR_DAMAGE = 25f;
-	[Export]
 	public float THROW_VELOCITY = 100f; // pixels per second
 
-	[Export]
 	public float UNSTEADY_THRESHOLD = 90f; /// how much poise before the character becomes unsteady
 
 	public int UNSTEADY_SPEED = 50;
@@ -31,6 +28,12 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 		_animationPlayer.AnimationFinished += this.onAnimationEnd;
 		weaponHitbox.HitboxStruck += this.onWeaponHit;
 
+		Timer resetDamageTimer = new Timer();
+		resetDamageTimer.Name = "ResetDamageTimer";
+		resetDamageTimer.WaitTime = 0.5f;
+		resetDamageTimer.OneShot = true;
+		resetDamageTimer.Timeout += ResetHasDamaged;
+		this.AddChild(resetDamageTimer);
 	}
 
 	protected override void SwitchState(CharacterState state) {
@@ -104,7 +107,7 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 					}   
 				}
 			}
-			this.SwitchState(CharacterState.Dead);
+			onDeath();
 		}
 	}
 
@@ -140,25 +143,37 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 
 	public void left_action()
 	{
-		_animationPlayer.ClearQueue();
-		_animationPlayer.Play("crowbar_swing"); 
+		if (this._state != CharacterState.Idle) {
+			return;
+		}
+
 		this.SwitchState(CharacterState.AttackingV1);
-		weaponHitbox.enable();
+
+		if (_state == CharacterState.AttackingV1) {
+			
+			_animationPlayer.ClearQueue();
+			_animationPlayer.Play("crowbar_swing"); 
+			weaponHitbox.enable();
+
+		}
 
 	}
 	private void onAnimationEnd(StringName myString) {
-
-		if (myString == "crowbar_swing") {
-			weaponHitbox.disable();
-		}
+		weaponHitbox.disable();
+		_animationPlayer.ClearQueue();
+		_animationPlayer.Play("RESET");
 	}
-
+	bool hasDamaged = false;
 	private void onWeaponHit(Node node) {
 		if (_state != CharacterState.AttackingV1 || this == node) {
 			return;
 		}
 		if (node is not IHurtbox && node is not IHitbox) {
 			onAnimationEnd("crowbar_swing");
+			return;
+		}
+		
+		if (node is IHitbox) {
 			return;
 		}
 
@@ -172,13 +187,24 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 		}
 
 
-		if (owner is iPoise) {
-			(owner as iPoise).addPoise(CROWBAR_DAMAGE);
+		if (owner is MainCharacter && hasDamaged == false) {
+			(owner as MainCharacter).addPoise(30f);
+			hasDamaged = true;
+			
+			Timer resetDamageTimer = this.GetNode<Timer>("ResetDamageTimer");
+			resetDamageTimer.Start();
+
 		}
 
 		onAnimationEnd("crowbar_swing");
+		this.SwitchState(CharacterState.Idle);
 		return;
 
+	}
+
+	private void ResetHasDamaged()
+	{
+		hasDamaged = false;
 	}
 	#region Grabbable
 	public bool IGrabbable()
@@ -236,8 +262,16 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 		if (poise > UNSTEADY_THRESHOLD) {
 			this.SwitchState(CharacterState.Unsteady);
 		}
+
+		if (_state == CharacterState.Unsteady) {
+			onDeath();
+		}
 	}
 	#endregion
 
+	private void onDeath() {
+		this.disableHurtboxes();
+		this.SwitchState(CharacterState.Dead);
+	}
 
 }

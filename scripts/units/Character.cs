@@ -22,8 +22,7 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHitboxOwner
 
 
 	#region Variables
-	[Export]
-	protected int DEFAULT_SPEED = 300;
+	protected int DEFAULT_SPEED = 150;
 	private int speed;
 	
 	protected CharacterState _state = CharacterState.Idle;
@@ -155,7 +154,7 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHitboxOwner
 		this.poise += poise;
 		this.poise = Mathf.Clamp(this.poise, 0,MAX_POISE);
 
-		GD.Print(this.poise);
+		///GD.Print(this.poise);
 	}
 	#endregion
 

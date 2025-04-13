@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bewl61pxnqcem" path="res://scripts/units/CrowbarEnemy.cs" id="1_2a1sh"]
 [ext_resource type="Texture2D" uid="uid://cdqrjsw4533s1" path="res://art/characters/Bad guy spritesheet.png" id="2_2a1sh"]
 [ext_resource type="Texture2D" uid="uid://d350mydql1osk" path="res://art/characters/hero.jpg" id="3_1lr7c"]
-[ext_resource type="Script" uid="uid://dxix1g37alm8x" path="res://scripts/controller/EnemyController.cs" id="4_5xbje"]
+[ext_resource type="Script" uid="uid://cno7me4y68tj8" path="res://scripts/controller/CrowbarEnemyController.cs" id="4_1lr7c"]
 [ext_resource type="SpriteFrames" uid="uid://dd0bch5dvc6ns" path="res://assets/spriteFrames/hand.tres" id="4_dvvrw"]
 [ext_resource type="Script" uid="uid://bcsfogtiyiscq" path="res://scripts/components/Hitbox.cs" id="5_1lr7c"]
 [ext_resource type="Texture2D" uid="uid://wepd1o36odmi" path="res://art/items/Items .png" id="5_2a1sh"]
@@ -24,9 +24,46 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/LeftFist:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-10, -5)]
+}
 
 [sub_resource type="Animation" id="Animation_2a1sh"]
 resource_name = "crowbar_swing"
+length = 0.833337
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.3, 0.3001, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.10828, 1.10828, -1.52716, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/LeftFist:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.3, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-10, -5), Vector2(-9.735, -0.525), Vector2(-7.675, -6.9), Vector2(-10, -5)]
+}
 
 [sub_resource type="Animation" id="Animation_l6bvi"]
 resource_name = "left_punch"
@@ -115,7 +152,7 @@ animation = &"new_animation"
 shape = SubResource("CircleShape2D_w2k4y")
 
 [node name="EnemyController" type="Node" parent="."]
-script = ExtResource("4_5xbje")
+script = ExtResource("4_1lr7c")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

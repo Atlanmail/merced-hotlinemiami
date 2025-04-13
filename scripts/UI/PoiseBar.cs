@@ -8,7 +8,7 @@ public partial class PoiseBar : ProgressBar
 	Node defaultCharacterPoise;
 
 	iPoise _iPoise;
-	Vector2 offset = Vector2.Up*2;
+	Vector2 offset = Vector2.Down*2;
 	bool isOnEntity = false;
 
 	public void setTarget(iPoise newPoise) {
@@ -39,7 +39,7 @@ public partial class PoiseBar : ProgressBar
 			return;
 		}
 		if (this.isOnEntity == true) {
-			this.Position = ((Node2D)_iPoise).Position + offset;
+			this.GlobalPosition = ((Node2D)_iPoise).GlobalPosition + offset;
 		}
 
 		this.Value = _iPoise.getPoise();

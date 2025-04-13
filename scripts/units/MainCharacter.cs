@@ -44,6 +44,12 @@ public partial class MainCharacter : Character {
 		}
 	}
 
+	protected override void runPostPhysics(double delta)
+	{
+		base.runPostPhysics(delta);
+		GD.Print(poise);
+	}
+
 	
 
 	public void left_action()
