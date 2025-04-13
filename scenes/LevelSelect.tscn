@@ -13,29 +13,39 @@ script = ExtResource("1_dbyaq")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 458.0
-offset_top = 66.0
-offset_right = 676.0
-offset_bottom = 144.0
+offset_left = 443.0
+offset_top = 273.0
+offset_right = 661.0
+offset_bottom = 351.0
 text = "1"
 
 [node name="Button2" type="Button" parent="."]
 layout_mode = 0
-offset_left = 494.0
-offset_top = 206.0
-offset_right = 635.0
-offset_bottom = 258.0
+offset_left = 479.0
+offset_top = 413.0
+offset_right = 620.0
+offset_bottom = 467.0
 text = "Floor and e
 Test"
 
 [node name="Button3" type="Button" parent="."]
 layout_mode = 0
-offset_left = 491.0
-offset_top = 364.0
-offset_right = 663.0
-offset_bottom = 400.0
+offset_left = 468.0
+offset_top = 571.0
+offset_right = 640.0
+offset_bottom = 607.0
 text = "Wall test"
+
+[node name="Button4" type="Button" parent="."]
+layout_mode = 0
+offset_left = 283.0
+offset_top = 75.0
+offset_right = 816.0
+offset_bottom = 175.0
+theme_override_font_sizes/font_size = 51
+text = "Demo"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Button4" to="." method="_on_button_4_pressed"]
