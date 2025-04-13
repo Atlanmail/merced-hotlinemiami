@@ -94,11 +94,15 @@ public partial class MainCharacter : Character {
 	}
 
 	private void onLeftHit(Node node) {
-		if (_state != CharacterState.AttackingV1 || this == node) {
+		if (_state != CharacterState.AttackingV1 || this == node || node == null) {
 			return;
 		}
 		if (node is not IHurtbox && node is not IHitbox) {
 			onAnimationEnd("left_punch");
+			return;
+		}
+		
+		if (node is IHitbox) {
 			return;
 		}
 
@@ -122,7 +126,7 @@ public partial class MainCharacter : Character {
 	}
 
 	private void onRightGrab(Node node) {
-		if (_state != CharacterState.AttackingV2) {
+		if (_state != CharacterState.AttackingV2 || this == node || node == null) {
 			return;
 		}
 
@@ -130,14 +134,14 @@ public partial class MainCharacter : Character {
 			return;
 		}
 		
-
+	
 		Node owner = (node as IHurtbox).getHurtboxOwner();
 		if (node is not IHurtbox || owner == null) {
 			onAnimationEnd("right_grab");
 			return;
 		}
 
-		if (owner is iGrabbable) {
+		if (owner is iGrabbable && (owner as iGrabbable).IGrabbable()) {
 			(owner as iGrabbable).Grab(rightFist);
 			this.isGrabbing = (iGrabbable)owner;
 		}

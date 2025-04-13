@@ -15,7 +15,7 @@ public partial class Buildings : TileMapLayer, IHurtbox
 
 	public Node getHurtboxOwner()
 	{
-		throw new NotImplementedException();
+		return this;
 	}
 
 	public bool isEnabled()
