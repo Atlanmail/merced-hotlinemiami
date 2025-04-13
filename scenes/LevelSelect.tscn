@@ -19,4 +19,14 @@ offset_right = 676.0
 offset_bottom = 144.0
 text = "1"
 
+[node name="Assets_button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 385.0
+offset_right = 676.0
+offset_bottom = 463.0
+text = "2"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Assets_button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Assets_button" to="." method="_on_assets_button_pressed"]

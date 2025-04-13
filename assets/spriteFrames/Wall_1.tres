@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://ckwvtdenutats"]
+
+[ext_resource type="Texture2D" uid="uid://bii5hlm3ikfd4" path="res://assets/Wall spritesheet.png" id="1_h1e3q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axqiv"]
+atlas = ExtResource("1_h1e3q")
+region = Rect2(649, 8, 159, 241)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axqiv")
+}],
+"loop": true,
+"name": &"Wall_1",
+"speed": 5.0
+}]
