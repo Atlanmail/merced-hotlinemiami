@@ -37,7 +37,7 @@ public partial class MainCharacter : Character {
 		if (body2D is IHurtbox) {
 			if (body2D is TileMapLayer) {
 				TileMapLayer mapLayer= (TileMapLayer)body2D;
-				Vector2 collisionPos = collision.GetPosition() + velocity * 5f; /// add a slight offset to gurantee position
+				Vector2 collisionPos = collision.GetPosition() + velocity.Normalized() * 5f; /// add a slight offset to gurantee position
 				Vector2I tileCoords = mapLayer.LocalToMap(collisionPos);
 				mapLayer.EraseCell(tileCoords); // 0 is layer index
 			}

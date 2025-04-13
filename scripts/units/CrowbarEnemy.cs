@@ -90,8 +90,9 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 			GodotObject body2D = collision.GetCollider();
 			if (body2D is IHurtbox) {
 				if (body2D is TileMapLayer) {
+					GD.Print("Hit wall");
 					TileMapLayer mapLayer= (TileMapLayer)body2D;
-					Vector2 collisionPos = collision.GetPosition() + velocity * 5f; /// add a slight offset to gurantee position
+					Vector2 collisionPos = collision.GetPosition() + velocity.Normalized() * 5f; /// add a slight offset to gurantee position
 					Vector2I tileCoords = mapLayer.LocalToMap(collisionPos);
 					mapLayer.EraseCell(tileCoords); // 0 is layer index
 				}
@@ -101,15 +102,15 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 					if (owner is iPoise) {
 						(owner as iPoise).addPoise(THROW_DAMAGE);
 					}   
-					this.SwitchState(CharacterState.Dead);
 				}
 			}
+			this.SwitchState(CharacterState.Dead);
 		}
 	}
 
 	protected override void runPhysics(double delta) {
 		///GD.Print(moveDir);
-		GD.Print(_state);
+		///GD.Print(_state);
 		if (_state == CharacterState.Idle || _state == CharacterState.Unsteady) {
 			walk(delta);
 		}
