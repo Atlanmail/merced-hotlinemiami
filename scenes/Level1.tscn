@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://isnj85y1bqk7" path="res://assets/tileset/TilesAndrew.tres" id="1_6ovph"]
 [ext_resource type="TileSet" uid="uid://bjon0v57fcjwb" path="res://assets/tileset/room_builder.tres" id="2_odhdn"]
-[ext_resource type="TileSet" path="res://assets/tileset/Walls.tres" id="3_dw26h"]
+[ext_resource type="TileSet" uid="uid://4okjyrxstex3" path="res://assets/tileset/Walls.tres" id="3_dw26h"]
 [ext_resource type="PackedScene" uid="uid://yk4dvrhyosg4" path="res://assets/units/main_character.tscn" id="4_dw26h"]
 
 [node name="Tiles_A" type="Node2D"]
