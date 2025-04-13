@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://doo5bn45q67ch"]
 
-[ext_resource type="Script" uid="uid://i4aukeob1qcp" path="res://scripts/units/Fist.cs" id="1_6nupw"]
+[ext_resource type="Script" uid="uid://bcsfogtiyiscq" path="res://scripts/components/Hitbox.cs" id="1_6nupw"]
 [ext_resource type="SpriteFrames" uid="uid://dd0bch5dvc6ns" path="res://assets/spriteFrames/hand.tres" id="1_qgo7l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_at8sa"]
@@ -9,7 +9,6 @@ radius = 11.6667
 [node name="Fist" type="Area2D"]
 collision_layer = 4
 script = ExtResource("1_6nupw")
-POSITION_THRESHOLD = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.6, 0.6)
