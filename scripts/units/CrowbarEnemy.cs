@@ -48,6 +48,9 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 				}
 				break;
 			case CharacterState.Unsteady:
+				if (_state == CharacterState.Grabbed || _state == CharacterState.Thrown) {
+					return;
+				}
 				_state = CharacterState.Unsteady;
 				this.setSpeed(UNSTEADY_SPEED);
 				break;
@@ -87,8 +90,9 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 			GodotObject body2D = collision.GetCollider();
 			if (body2D is IHurtbox) {
 				if (body2D is TileMapLayer) {
+					GD.Print("Hit wall");
 					TileMapLayer mapLayer= (TileMapLayer)body2D;
-					Vector2 collisionPos = collision.GetPosition() + velocity * 5f; /// add a slight offset to gurantee position
+					Vector2 collisionPos = collision.GetPosition() + velocity.Normalized() * 5f; /// add a slight offset to gurantee position
 					Vector2I tileCoords = mapLayer.LocalToMap(collisionPos);
 					mapLayer.EraseCell(tileCoords); // 0 is layer index
 				}
@@ -98,14 +102,15 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 					if (owner is iPoise) {
 						(owner as iPoise).addPoise(THROW_DAMAGE);
 					}   
-					this.SwitchState(CharacterState.Dead);
 				}
 			}
+			this.SwitchState(CharacterState.Dead);
 		}
 	}
 
 	protected override void runPhysics(double delta) {
 		///GD.Print(moveDir);
+		///GD.Print(_state);
 		if (_state == CharacterState.Idle || _state == CharacterState.Unsteady) {
 			walk(delta);
 		}
@@ -121,8 +126,16 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 				onCollide(collision);
 			}
 		}
+	}
 
-		
+	protected override void runPostPhysics(double delta) {
+		base.runPostPhysics(delta);
+		if (poise < UNSTEADY_THRESHOLD) {
+			this.SwitchState(CharacterState.Idle);
+		}
+		else {
+			this.SwitchState(CharacterState.Unsteady);
+		}
 	}
 
 	public void left_action()
@@ -217,13 +230,6 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 
 	#region IPoise
 
-	public override void decayPoise(double delta)
-	{
-		base.decayPoise(delta);
-		if (poise < UNSTEADY_THRESHOLD) {
-			this.SwitchState(CharacterState.Idle);
-		}
-	}
 	
 	public override void addPoise(float poise) {
 		base.addPoise(poise);

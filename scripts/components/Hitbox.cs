@@ -70,6 +70,21 @@ public partial class Hitbox : Area2D, IHitbox
 
 	public void enable() {
 		enabled = true;
+
+		foreach (Area2D area in GetOverlappingAreas())
+		{
+			OnAreaEntered(area);
+		}
+
+		// Get all overlapping bodies
+		foreach (Node2D body in GetOverlappingBodies())
+		{
+			if (body is Node2D node2D)
+			{
+				OnBodyEntered(node2D);
+			}
+		}
+
 	}
 
 	public void disable() {

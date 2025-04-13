@@ -37,7 +37,7 @@ public partial class MainCharacter : Character {
 		if (body2D is IHurtbox) {
 			if (body2D is TileMapLayer) {
 				TileMapLayer mapLayer= (TileMapLayer)body2D;
-				Vector2 collisionPos = collision.GetPosition() + velocity * 5f; /// add a slight offset to gurantee position
+				Vector2 collisionPos = collision.GetPosition() + velocity.Normalized() * 5f; /// add a slight offset to gurantee position
 				Vector2I tileCoords = mapLayer.LocalToMap(collisionPos);
 				mapLayer.EraseCell(tileCoords); // 0 is layer index
 			}
@@ -134,10 +134,18 @@ public partial class MainCharacter : Character {
 			return;
 		}
 		
+
 	
-		Node owner = (node as IHurtbox).getHurtboxOwner();
-		if (node is not IHurtbox || owner == null) {
-			onAnimationEnd("right_grab");
+		Node owner = null;
+		
+		if (node is IHurtbox) {
+			owner = (node as IHurtbox).getHurtboxOwner();
+		}
+		else if (node is iGrabbable) {
+			owner = node;
+		}
+
+		if (owner == null || owner == this) {
 			return;
 		}
 
