@@ -3,10 +3,11 @@ using System;
 
 public partial class PlayerController : Node
 {
-	[Export]
-	private int speed = 300;
 
-	private MainCharacter _character;
+
+	private static MainCharacter _character;
+
+	public static MainCharacter MainCharacter { get { return _character; } }
 	private Vector2 GetInput()
 	{
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_up", "move_down");

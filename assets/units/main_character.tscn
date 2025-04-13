@@ -125,7 +125,7 @@ animation = &"new_animation"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_w2k4y")
 
-[node name="CharacterController" type="Node" parent="."]
+[node name="PlayerController" type="Node" parent="."]
 script = ExtResource("3_x6a0n")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -137,3 +137,6 @@ position = Vector2(-13, -8)
 
 [node name="RightFist" parent="RightElbow" instance=ExtResource("4_l6bvi")]
 position = Vector2(13, -8)
+
+[editable path="LeftFist"]
+[editable path="RightElbow/RightFist"]

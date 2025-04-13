@@ -57,6 +57,9 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
+	/**
+	Moves towards a global position
+	*/
 	public void move(float x, float y)
 	{
 		moveDir = new Vector2(x,y) - Position;
