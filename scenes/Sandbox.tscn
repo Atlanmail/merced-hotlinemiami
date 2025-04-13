@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d3tj2p8wha3af" path="res://assets/units/enemy.tscn" id="4_a0ubh"]
 [ext_resource type="Script" uid="uid://dvj38a56xot1l" path="res://scripts/interactables/Buildings.cs" id="4_w8s17"]
 [ext_resource type="PackedScene" uid="uid://c62plilmy2mxt" path="res://assets/interactable/punching_bag.tscn" id="6_4iboa"]
+[ext_resource type="PackedScene" path="res://assets/interactable/explosive_barrel.tscn" id="8_4iboa"]
 [ext_resource type="PackedScene" uid="uid://cbjh68mlkf2cu" path="res://assets/component/poise_bar.tscn" id="8_48n3s"]
 [ext_resource type="PackedScene" uid="uid://d0t8mdhm2ccd7" path="res://assets/interactable/table.tscn" id="12_fhxv8"]
 
