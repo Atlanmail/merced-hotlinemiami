@@ -48,6 +48,9 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 				}
 				break;
 			case CharacterState.Unsteady:
+				if (_state == CharacterState.Grabbed || _state == CharacterState.Thrown) {
+					return;
+				}
 				_state = CharacterState.Unsteady;
 				this.setSpeed(UNSTEADY_SPEED);
 				break;
@@ -106,6 +109,7 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 
 	protected override void runPhysics(double delta) {
 		///GD.Print(moveDir);
+		GD.Print(_state);
 		if (_state == CharacterState.Idle || _state == CharacterState.Unsteady) {
 			walk(delta);
 		}
@@ -121,8 +125,16 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 				onCollide(collision);
 			}
 		}
+	}
 
-		
+	protected override void runPostPhysics(double delta) {
+		base.runPostPhysics(delta);
+		if (poise < UNSTEADY_THRESHOLD) {
+			this.SwitchState(CharacterState.Idle);
+		}
+		else {
+			this.SwitchState(CharacterState.Unsteady);
+		}
 	}
 
 	public void left_action()
@@ -217,13 +229,6 @@ public partial class CrowbarEnemy : Character, iGrabbable {
 
 	#region IPoise
 
-	public override void decayPoise(double delta)
-	{
-		base.decayPoise(delta);
-		if (poise < UNSTEADY_THRESHOLD) {
-			this.SwitchState(CharacterState.Idle);
-		}
-	}
 	
 	public override void addPoise(float poise) {
 		base.addPoise(poise);

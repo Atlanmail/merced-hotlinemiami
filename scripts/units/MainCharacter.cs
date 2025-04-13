@@ -134,10 +134,18 @@ public partial class MainCharacter : Character {
 			return;
 		}
 		
+
 	
-		Node owner = (node as IHurtbox).getHurtboxOwner();
-		if (node is not IHurtbox || owner == null) {
-			onAnimationEnd("right_grab");
+		Node owner = null;
+		
+		if (node is IHurtbox) {
+			owner = (node as IHurtbox).getHurtboxOwner();
+		}
+		else if (node is iGrabbable) {
+			owner = node;
+		}
+
+		if (owner == null || owner == this) {
 			return;
 		}
 

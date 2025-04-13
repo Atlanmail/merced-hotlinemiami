@@ -25,6 +25,9 @@ tracks/0/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_2a1sh"]
+resource_name = "crowbar_swing"
+
 [sub_resource type="Animation" id="Animation_l6bvi"]
 resource_name = "left_punch"
 length = 0.433337
@@ -44,9 +47,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, -0.785398, 0.0]
 }
-
-[sub_resource type="Animation" id="Animation_2a1sh"]
-resource_name = "crowbar_swing"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n2e48"]
 _data = {
