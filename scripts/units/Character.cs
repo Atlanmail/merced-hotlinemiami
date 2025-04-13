@@ -1,12 +1,26 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public partial class Character : CharacterBody2D, iMove, iPoise
+public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox
 {
+
+	protected enum CharacterState
+	{
+		Idle,
+		Walking,
+		AttackingV1,
+		AttackingV2,
+		Charging
+	}
+
+
 	#region Variables
 	[Export]
 	private int speed = 300;
 	
+	protected CharacterState _state = CharacterState.Idle;
+
 	[Export]
 	private float poise = 100; 
 	[Export]
@@ -15,8 +29,17 @@ public partial class Character : CharacterBody2D, iMove, iPoise
 	private Vector2 moveDir = new Vector2(0,0);
 	private Vector2 faceAtPoint;
 	CharacterBody2D characterBody2D;
+	
+	List<IHurtbox> hurtboxes = new List<IHurtbox>();
+	bool hurtboxEnabled = false;
 
 	#endregion
+
+	protected virtual void SwitchState(CharacterState state) {
+
+	}
+
+
 
 	public override void _Ready()
 	{
@@ -62,7 +85,7 @@ public partial class Character : CharacterBody2D, iMove, iPoise
 
 		if (collision != null) {
 			GodotObject body2D = collision.GetCollider();
-			if (body2D is TileMapLayer) {
+			if (body2D is IHurtbox) {
 				TileMapLayer mapLayer= (TileMapLayer)body2D;
 				Vector2 collisionPos = collision.GetPosition() + moveDir * 5f; /// add a slight offset to gurantee position
 				Vector2I tileCoords = mapLayer.LocalToMap(collisionPos);
@@ -99,6 +122,34 @@ public partial class Character : CharacterBody2D, iMove, iPoise
 	}
 	#endregion
 
-	
+	#region IHurtbox
+	public Node getHurtboxOwner()
+	{
+		return this;
+	}
+
+	public void enable()
+	{	
+		this.hurtboxEnabled = true;
+		foreach (IHurtbox hurtbox in this.hurtboxes) {
+			hurtbox.enable();
+		}
+	}
+
+	public void disable()
+	{
+		this.hurtboxEnabled = false;
+		foreach (IHurtbox hurtbox in this.hurtboxes) {
+			hurtbox.disable();
+		}
+	}
+
+	public bool isEnabled()
+	{
+		return this.hurtboxEnabled;
+	}
+	#endregion
+
+
 
 }

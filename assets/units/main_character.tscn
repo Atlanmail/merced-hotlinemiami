@@ -5,22 +5,6 @@
 [ext_resource type="Script" uid="uid://df6i82uf7lnih" path="res://scripts/controller/PlayerController.cs" id="3_x6a0n"]
 [ext_resource type="PackedScene" uid="uid://doo5bn45q67ch" path="res://assets/component/fist.tscn" id="4_l6bvi"]
 
-[sub_resource type="Animation" id="Animation_l6bvi"]
-resource_name = "left_punch"
-length = 0.433337
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LeftFist:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.233333, 0.433333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-13, -8), Vector2(-13, -23), Vector2(-13, -8)]
-}
-
 [sub_resource type="Animation" id="Animation_n2e48"]
 length = 0.001
 tracks/0/type = "value"
@@ -58,6 +42,22 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_l6bvi"]
+resource_name = "left_punch"
+length = 0.433337
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftFist:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-13, -8), Vector2(-13, -23), Vector2(-13, -8)]
 }
 
 [sub_resource type="Animation" id="Animation_x6a0n"]
@@ -132,10 +132,8 @@ script = ExtResource("3_x6a0n")
 
 [node name="LeftFist" parent="." instance=ExtResource("4_l6bvi")]
 position = Vector2(-13, -8)
-POSITION_THRESHOLD = null
 
 [node name="RightElbow" type="Node2D" parent="."]
 
 [node name="RightFist" parent="RightElbow" instance=ExtResource("4_l6bvi")]
 position = Vector2(13, -8)
-POSITION_THRESHOLD = null

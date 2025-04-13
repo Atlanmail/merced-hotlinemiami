@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MercedHotlineMiami"
-run/main_scene="uid://b352pnfql4doc"
+run/main_scene="uid://du7fv2o3yevyi"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
