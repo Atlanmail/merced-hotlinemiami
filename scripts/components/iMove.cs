@@ -16,7 +16,7 @@ public interface iMove
 	public int getSpeed();
 
 	/**
-	Shoves the entity in the specified direction 
+	Shoves the entity in the specified direction with force 
 	Returns 0 on success
 	*/
 	public void shove(int x, int y, float force);

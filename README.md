@@ -5,7 +5,7 @@
 Collision layer:
 
 
-1 is for terrain
+1 is for walls
 
 2 is for units
 3 is for hitboxes/hurtboxes
@@ -18,4 +18,4 @@ Enemies
 Poise bar
 Punches
 Grab
-    Have arms be held by physics joints
+	Have arms be held by physics joints
