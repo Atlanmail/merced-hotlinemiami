@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bwbjxyfr5bp0v" path="res://scripts/units/MainCharacter.cs" id="1_l6bvi"]
 [ext_resource type="Texture2D" uid="uid://d350mydql1osk" path="res://art/characters/hero.jpg" id="2_n2e48"]
-[ext_resource type="Texture2D" uid="uid://buxpr1y25o2ue" path="res://art/characters/CharA0.png" id="2_x6a0n"]
+[ext_resource type="Texture2D" uid="uid://cs3mn8ddnxk15" path="res://art/characters/CharA0.png" id="2_x6a0n"]
 [ext_resource type="Script" uid="uid://df6i82uf7lnih" path="res://scripts/controller/PlayerController.cs" id="3_x6a0n"]
 [ext_resource type="PackedScene" uid="uid://doo5bn45q67ch" path="res://assets/component/fist.tscn" id="4_l6bvi"]
 
@@ -139,10 +139,11 @@ libraries = {
 }
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2.38419e-07, -9.53674e-07)
-scale = Vector2(0.0953125, 0.0953125)
+position = Vector2(0, 3)
+scale = Vector2(0.108594, 0.108594)
 sprite_frames = SubResource("SpriteFrames_4iboa")
 animation = &"new_animation"
+frame_progress = 0.452451
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_w2k4y")

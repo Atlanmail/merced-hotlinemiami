@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cs3mn8ddnxk15"
-path="res://.godot/imported/CharA0.png-21626f9af9b393d88680042bf5140bf0.ctex"
+uid="uid://cfgvk3dmdecep"
+path="res://.godot/imported/Wall spritesheet.png-4644a8789e47ea01ecc18375dde6b7b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/characters/CharA0.png"
-dest_files=["res://.godot/imported/CharA0.png-21626f9af9b393d88680042bf5140bf0.ctex"]
+source_file="res://assets/tileset/Wall spritesheet.png"
+dest_files=["res://.godot/imported/Wall spritesheet.png-4644a8789e47ea01ecc18375dde6b7b7.ctex"]
 
 [params]
 

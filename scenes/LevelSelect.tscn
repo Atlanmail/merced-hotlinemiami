@@ -17,9 +17,17 @@ offset_left = 458.0
 offset_top = 66.0
 offset_right = 676.0
 offset_bottom = 144.0
-text = "1"
+text = "Sandbox"
 
 [node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 462.0
+offset_top = 339.0
+offset_right = 681.0
+offset_bottom = 393.0
+text = "1"
+
+[node name="Button3" type="Button" parent="."]
 layout_mode = 0
 offset_left = 494.0
 offset_top = 206.0
@@ -30,3 +38,4 @@ Test"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]

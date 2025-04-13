@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://dd0bch5dvc6ns"]
 
-[ext_resource type="Texture2D" uid="uid://b6dtklqprmu3e" path="res://art/items/Objects.png" id="1_fb72v"]
+[ext_resource type="Texture2D" uid="uid://b1f1jw2d0g8ue" path="res://art/characters/Objects.png" id="1_fb72v"]
 [ext_resource type="Texture2D" uid="uid://c14vyxhylwcmh" path="res://art/characters/hand.jpg" id="1_xm34o"]
 [ext_resource type="Texture2D" uid="uid://wepd1o36odmi" path="res://art/items/Items .png" id="2_uqj8g"]
 
