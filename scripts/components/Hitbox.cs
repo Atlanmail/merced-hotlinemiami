@@ -11,19 +11,37 @@ public partial class Hitbox : Area2D, IHitbox
 	*/
 	[Signal]
 	public delegate void HitboxStruckEventHandler(Node node);
-	Character _character;
+	IHitboxOwner _owner;
 	bool enabled = false;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
-		_character = NodeExtensions.FindFirstParent<Character>(this);
-
-		if (_character == null) {
-			GD.PushError("Parent of hitbox is not character");
+		Node current = this	;
+		while (current != null)
+		{
+			if (current is IHitboxOwner)
+			{	
+				GD.Print("Found hitboxOwner " + current.Name);
+				_owner = (IHitboxOwner)current;
+				break;
+			}    
+			current = current.GetParent();
+		}
+		if (_owner == null) {
+			GD.PushError("Parent of hitbox is not an IHitboxOwner");
 			return;
 		}
+
+		this.CollisionLayer = 0;
+		this.CollisionMask = 0;
+
+		this.SetCollisionLayerValue(3, true);
+		this.SetCollisionMaskValue(1, true);
+		this.SetCollisionMaskValue(3, true);
+
+		
 
 		BodyEntered += OnBodyEntered;
 		AreaEntered += OnAreaEntered;
@@ -46,8 +64,8 @@ public partial class Hitbox : Area2D, IHitbox
 	/**
 	Returns the character associated with this
 	*/
-	public Node getOwner() {
-		return _character;
+	public IHitboxOwner getOwner() {
+		return _owner;
 	}   
 
 	public void enable() {

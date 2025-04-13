@@ -10,6 +10,12 @@ public partial class Hurtbox : Area2D, IHurtbox
 	{
 		base._Ready();
 
+		
+		this.CollisionLayer = 0;
+		this.CollisionMask = 0;
+		this.SetCollisionLayerValue(3, true);
+		this.SetCollisionMaskValue(3, true);
+
 		_character = (Character)GetParent();
 
 		if (_character == null) {

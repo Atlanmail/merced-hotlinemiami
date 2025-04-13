@@ -21,6 +21,6 @@ public interface iPoise
     /**
     Call this every frame to decay
     */
-    public void decayPoise();
+    public void decayPoise(double delta);
 
 }
