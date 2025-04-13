@@ -80,14 +80,10 @@ public partial class MainCharacter : Character {
 	}
 
 	private void onLeftHit(Node node) {
-		if (_state != CharacterState.AttackingV1) {
+		if (_state != CharacterState.AttackingV1 || this == node) {
 			return;
 		}
-
-		if (this == node) {
-			return;
-		}
-		if (node is not IHurtbox) {
+		if (node is not IHurtbox && node is not IHitbox) {
 			onAnimationEnd("left_punch");
 			return;
 		}
@@ -96,7 +92,6 @@ public partial class MainCharacter : Character {
 		if (owner == this) {
 			return;
 		}
-
 		if (owner == null) {
 			onAnimationEnd("left_punch");
 			return;

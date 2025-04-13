@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3tj2p8wha3af"]
+[gd_scene load_steps=13 format=3 uid="uid://d3tj2p8wha3af"]
 
 [ext_resource type="Script" uid="uid://bwbjxyfr5bp0v" path="res://scripts/units/MainCharacter.cs" id="1_g7ham"]
 [ext_resource type="Texture2D" uid="uid://d350mydql1osk" path="res://art/characters/hero.jpg" id="2_l0osn"]
 [ext_resource type="Script" uid="uid://dxix1g37alm8x" path="res://scripts/controller/EnemyController.cs" id="3_3vau8"]
 [ext_resource type="PackedScene" uid="uid://doo5bn45q67ch" path="res://assets/component/fist.tscn" id="4_svo2t"]
 [ext_resource type="PackedScene" uid="uid://cbjh68mlkf2cu" path="res://assets/component/poise_bar.tscn" id="5_hxkte"]
+[ext_resource type="PackedScene" uid="uid://behct2yx34lfw" path="res://assets/component/hurtboxSquare.tscn" id="6_l0osn"]
 
 [sub_resource type="Animation" id="Animation_n2e48"]
 length = 0.001
@@ -112,7 +113,7 @@ animations = [{
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_g7ham")
 speed = 150
-poise = 0.0
+poiseDecayRate = 5.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -147,6 +148,9 @@ offset_top = -33.0
 offset_right = 2.0
 offset_bottom = -6.0
 scale = Vector2(13.985, 0.505302)
+
+[node name="Hurtbox" parent="." instance=ExtResource("6_l0osn")]
+scale = Vector2(1.49724, 1.14131)
 
 [editable path="LeftFist"]
 [editable path="RightElbow/RightFist"]

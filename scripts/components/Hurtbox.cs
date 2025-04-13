@@ -4,7 +4,7 @@ using System;
 public partial class Hurtbox : Area2D, IHurtbox
 {
 	Character _character;
-	bool enabled = false;
+	bool enabled = true;
 
 	public override void _Ready()
 	{

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitboxOwner
+public partial class Character : CharacterBody2D, iMove, iPoise, IHitboxOwner
 {
 
 	protected enum CharacterState
@@ -49,6 +49,8 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 	{
 		base._Ready();
 		faceAtPoint = Position + Vector2.Up* 3;
+
+		loadHurtboxes();
 	}
 
 
@@ -82,6 +84,12 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 
 	public override void _PhysicsProcess(double delta)
 	{
+		
+		runPhysics(delta);
+		runPostPhysics(delta);
+	}
+
+	protected virtual void runPhysics(double delta) {
 		///GD.Print(moveDir);
 		KinematicCollision2D collision = MoveAndCollide( moveDir * (float)speed * (float)delta);
 		LookAt(faceAtPoint);
@@ -102,10 +110,10 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 				}
 			}
 		}
+	}
 
-		
-	   
-
+	protected virtual void runPostPhysics(double delta) {
+		this.decayPoise(delta);
 	}
 
 	#region IPoise
@@ -136,6 +144,16 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 	#endregion
 
 	#region IHurtbox
+
+	protected void loadHurtboxes() {
+		foreach (Node hurtbox in this.GetChildren()) {
+			if (hurtbox is IHurtbox) {
+				hurtboxes.Add((IHurtbox)hurtbox);
+			}
+		}
+
+		enable();
+	}
 	public Node getHurtboxOwner()
 	{
 		return this;
@@ -143,7 +161,6 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 
 	public void enable()
 	{	
-		this.hurtboxEnabled = true;
 		foreach (IHurtbox hurtbox in this.hurtboxes) {
 			hurtbox.enable();
 		}
@@ -151,7 +168,6 @@ public partial class Character : CharacterBody2D, iMove, iPoise, IHurtbox, IHitb
 
 	public void disable()
 	{
-		this.hurtboxEnabled = false;
 		foreach (IHurtbox hurtbox in this.hurtboxes) {
 			hurtbox.disable();
 		}
