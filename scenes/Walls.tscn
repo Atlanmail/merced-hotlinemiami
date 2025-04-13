@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=4 uid="uid://bipqnj1507ji"]
+
+[ext_resource type="Texture2D" uid="uid://bm6s0e7x3oikq" path="res://assets/tileset/Wall spritesheet.png" id="1_ce0mj"]
+[ext_resource type="Script" uid="uid://dvj38a56xot1l" path="res://scripts/interactables/Buildings.cs" id="2_cs6l2"]
+[ext_resource type="PackedScene" uid="uid://yk4dvrhyosg4" path="res://assets/units/main_character.tscn" id="3_cs6l2"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cs6l2"]
+texture = ExtResource("1_ce0mj")
+0:17/size_in_atlas = Vector2i(21, 16)
+0:17/0 = 0
+0:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(-157.5, -119.5, 161.5, -119.5, 161.5, 119.5, -157.5, 120.5)
+40:0/size_in_atlas = Vector2i(11, 17)
+40:0/0 = 0
+40:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-78.1796, -126.16, 81.5665, -125.595, 82.131, 114.306, -79.3086, 112.613)
+105:4/size_in_atlas = Vector2i(10, 31)
+105:4/0 = 0
+105:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-79.5, -234.5, 79.5, -235.5, 80.5, 250.5, -83.5, 248.5)
+
+[sub_resource type="TileSet" id="TileSet_cs6l2"]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_cs6l2")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Walls" type="TileMapLayer" parent="."]
+scale = Vector2(0.25, 0.25)
+tile_map_data = PackedByteArray("AAAEAAEAAAAAABEAAAANAAEAAAAoAAAAAAAJAAMAAABpAAQAAAA=")
+tile_set = SubResource("TileSet_cs6l2")
+
+[node name="Walls_Break" type="TileMapLayer" parent="."]
+modulate = Color(0.769147, 0.357551, 0.566717, 1)
+position = Vector2(26, 113)
+scale = Vector2(0.25, 0.25)
+tile_map_data = PackedByteArray("AAAAAAkAAAAAABEAAAABAAkAAAAAABEAAAACAAkAAAAAABEAAAADAAkAAAAAABEAAAAEAAkAAAAAABEAAAAFAAkAAAAAABEAAAAGAAkAAAAAABEAAAAHAAkAAAAAABEAAAAIAAkAAAAAABEAAAAJAAkAAAAAABEAAAAKAAkAAAAAABEAAAALAAkAAAAAABEAAAAMAAkAAAAAABEAAAANAAkAAAAAABEAAAAOAAkAAAAAABEAAAAPAAkAAAAoAAAAAAAPAAgAAABpAAQAAAAPAAcAAABpAAQAAAAPAAYAAABpAAQAAAAPAAUAAABpAAQAAAAPAAQAAABpAAQAAAAPAAMAAABpAAQAAAAPAAIAAABpAAQAAAAPAAEAAABpAAQAAAD//wkAAAAoAAAAAAD//wgAAABpAAQAAAD//wcAAABpAAQAAAD//wYAAABpAAQAAAD//wUAAABpAAQAAAD//wQAAABpAAQAAAD//wMAAABpAAQAAAD//wIAAABpAAQAAAD//wEAAABpAAQAAAA=")
+tile_set = SubResource("TileSet_cs6l2")
+script = ExtResource("2_cs6l2")
+
+[node name="MainCharacter" parent="." instance=ExtResource("3_cs6l2")]
+position = Vector2(181, 220)

@@ -28,5 +28,14 @@ offset_bottom = 258.0
 text = "Floor and e
 Test"
 
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 491.0
+offset_top = 364.0
+offset_right = 663.0
+offset_bottom = 400.0
+text = "Wall test"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]

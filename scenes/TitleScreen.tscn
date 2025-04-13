@@ -1,9 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://b352pnfql4doc"]
+[gd_scene load_steps=6 format=3 uid="uid://b352pnfql4doc"]
 
 [ext_resource type="Script" uid="uid://dmrfxim72h3b" path="res://scenes/TitleScreen.gd" id="1_qyuap"]
+[ext_resource type="Texture2D" uid="uid://cdf30gslwebkl" path="res://art/characters/Untitled_Artwork.png" id="2_ch40n"]
+
+[sub_resource type="Theme" id="Theme_qyuap"]
 
 [sub_resource type="SystemFont" id="SystemFont_qyuap"]
 generate_mipmaps = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ch40n"]
+bg_color = Color(0.971288, 0.839612, 0.704292, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0.172833, 0.172833, 0.172833, 0.6)
+shadow_size = 28
+shadow_offset = Vector2(-12, 12)
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -14,6 +27,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qyuap")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(572.333, 326.5)
+scale = Vector2(0.591667, 0.591667)
+texture = ExtResource("2_ch40n")
+
 [node name="StartButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -21,8 +39,12 @@ offset_left = 393.0
 offset_top = 403.0
 offset_right = 756.0
 offset_bottom = 552.0
+theme = SubResource("Theme_qyuap")
+theme_type_variation = &"FlatButton"
+theme_override_constants/outline_size = 15
 theme_override_fonts/font = SubResource("SystemFont_qyuap")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_ch40n")
 text = "START"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
