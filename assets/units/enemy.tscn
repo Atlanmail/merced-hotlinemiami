@@ -141,7 +141,6 @@ bg_color = Color(0.823529, 0.415686, 0.0117647, 1)
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_g7ham")
 speed = 150
-poiseDecayRate = 5.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -186,7 +185,8 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_3vau8")
 step = 0.1
 
 [node name="Hurtbox" parent="." instance=ExtResource("6_l0osn")]
-scale = Vector2(1.56297, 0.758347)
+position = Vector2(0, -3)
+scale = Vector2(1.6771, 1.33455)
 
 [editable path="LeftFist"]
 [editable path="RightElbow/RightFist"]

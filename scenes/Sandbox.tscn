@@ -25,10 +25,11 @@ script = ExtResource("4_w8s17")
 
 [node name="MainCharacter" parent="." instance=ExtResource("2_n4mgf")]
 position = Vector2(181, 220)
-poiseDecayRate = 50.0
+POISE_DECAYRATE = 40.0
 
 [node name="Enemy" parent="." instance=ExtResource("4_a0ubh")]
 position = Vector2(652, 212)
+POISE_DECAYRATE = 5.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
