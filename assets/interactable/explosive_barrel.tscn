@@ -1,0 +1,116 @@
+[gd_scene load_steps=17 format=3 uid="uid://du28uqnw0i6oa"]
+
+[ext_resource type="Texture2D" uid="uid://ctvmuv2hvwndt" path="res://art/items/Destructible Objects Sprite Sheet.png" id="1_8tvh1"]
+[ext_resource type="Script" uid="uid://c06kq7k7llanc" path="res://scripts/interactables/ExplosiveBarrel.cs" id="1_jrw4m"]
+[ext_resource type="PackedScene" uid="uid://b7tkybq311k" path="res://assets/component/hitbox.tscn" id="3_jrw4m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jrw4m"]
+radius = 12.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7qyg"]
+atlas = ExtResource("1_8tvh1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shhl3"]
+atlas = ExtResource("1_8tvh1")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efpno"]
+atlas = ExtResource("1_8tvh1")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoqib"]
+atlas = ExtResource("1_8tvh1")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyg1u"]
+atlas = ExtResource("1_8tvh1")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdjc6"]
+atlas = ExtResource("1_8tvh1")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpyc3"]
+atlas = ExtResource("1_8tvh1")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_raw1s"]
+atlas = ExtResource("1_8tvh1")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qoxwi"]
+atlas = ExtResource("1_8tvh1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qtrd"]
+atlas = ExtResource("1_8tvh1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgqio"]
+atlas = ExtResource("1_8tvh1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jrw4m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7qyg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shhl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efpno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoqib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jyg1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdjc6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpyc3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_raw1s")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qoxwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qtrd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgqio")
+}],
+"loop": false,
+"name": &"onDamage",
+"speed": 5.0
+}]
+
+[node name="ExplosiveBarrel" type="CharacterBody2D"]
+script = ExtResource("1_jrw4m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jrw4m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 1)
+sprite_frames = SubResource("SpriteFrames_jrw4m")
+offset = Vector2(-2, -6)
+
+[node name="Hitbox" parent="." instance=ExtResource("3_jrw4m")]

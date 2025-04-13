@@ -13,7 +13,7 @@ public interface IHitbox
 	/**
 	Returns the character associated with this
 	*/
-	public Node getOwner();
+	public IHitboxOwner getOwner();
     
 	public void enable();
 

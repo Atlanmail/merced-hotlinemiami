@@ -4,11 +4,17 @@ using System;
 public partial class Hurtbox : Area2D, IHurtbox
 {
 	Character _character;
-	bool enabled = false;
+	bool enabled = true;
 
 	public override void _Ready()
 	{
 		base._Ready();
+
+		
+		this.CollisionLayer = 0;
+		this.CollisionMask = 0;
+		this.SetCollisionLayerValue(3, true);
+		this.SetCollisionMaskValue(3, true);
 
 		_character = (Character)GetParent();
 

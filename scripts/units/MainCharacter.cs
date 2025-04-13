@@ -4,17 +4,18 @@ using System.Diagnostics;
 
 public partial class MainCharacter : Character {
 
-	AnimationPlayer _animationPlayer;
 
 	Hitbox leftFist;
 	Hitbox rightFist;
 	iGrabbable isGrabbing;
+	AnimationPlayer _animationPlayer;
 	public override void _Ready()
 	{
 		base._Ready();
 
 		leftFist = (Hitbox)NodeExtensions.FindFirstChildOfName(this, "LeftFist");
 		rightFist = (Hitbox)NodeExtensions.FindFirstChildOfName(this, "RightFist");
+
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_animationPlayer.AnimationFinished += this.onAnimationEnd;
 		leftFist.HitboxStruck += this.onLeftHit;
@@ -22,14 +23,27 @@ public partial class MainCharacter : Character {
 	}
 
 	protected override void SwitchState(CharacterState state) {
-		this._state = state;
-
+		base.SwitchState(state);
 		if (state == CharacterState.Idle) {
 			leftFist.disable();
 			rightFist.disable();
 		}
 		
 	}
+
+	protected override void onCollide(KinematicCollision2D collision)
+	{
+		GodotObject body2D = collision.GetCollider();
+		if (body2D is IHurtbox) {
+			if (body2D is TileMapLayer) {
+				TileMapLayer mapLayer= (TileMapLayer)body2D;
+				Vector2 collisionPos = collision.GetPosition() + velocity * 5f; /// add a slight offset to gurantee position
+				Vector2I tileCoords = mapLayer.LocalToMap(collisionPos);
+				mapLayer.EraseCell(tileCoords); // 0 is layer index
+			}
+		}
+	}
+
 	
 
 	public void left_action()
@@ -80,20 +94,18 @@ public partial class MainCharacter : Character {
 	}
 
 	private void onLeftHit(Node node) {
-		if (_state != CharacterState.AttackingV1) {
+		if (_state != CharacterState.AttackingV1 || this == node) {
 			return;
 		}
-
-		if (this == node) {
-			return;
-		}
-		if (node is not IHurtbox) {
+		if (node is not IHurtbox && node is not IHitbox) {
 			onAnimationEnd("left_punch");
 			return;
 		}
 
 		Node owner = (node as IHurtbox).getHurtboxOwner();
-
+		if (owner == this) {
+			return;
+		}
 		if (owner == null) {
 			onAnimationEnd("left_punch");
 			return;

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://du7fv2o3yevyi"]
+[gd_scene load_steps=9 format=4 uid="uid://du7fv2o3yevyi"]
 
 [ext_resource type="TileSet" uid="uid://bjon0v57fcjwb" path="res://assets/tileset/room_builder.tres" id="1_vn80e"]
 [ext_resource type="PackedScene" uid="uid://yk4dvrhyosg4" path="res://assets/units/main_character.tscn" id="2_n4mgf"]
 [ext_resource type="PackedScene" uid="uid://d3tj2p8wha3af" path="res://assets/units/enemy.tscn" id="4_a0ubh"]
 [ext_resource type="Script" uid="uid://dvj38a56xot1l" path="res://scripts/interactables/Buildings.cs" id="4_w8s17"]
 [ext_resource type="PackedScene" uid="uid://c62plilmy2mxt" path="res://assets/interactable/punching_bag.tscn" id="6_4iboa"]
+[ext_resource type="PackedScene" uid="uid://du28uqnw0i6oa" path="res://assets/interactable/explosive_barrel.tscn" id="8_4iboa"]
 [ext_resource type="PackedScene" uid="uid://cbjh68mlkf2cu" path="res://assets/component/poise_bar.tscn" id="8_48n3s"]
 [ext_resource type="PackedScene" uid="uid://d0t8mdhm2ccd7" path="res://assets/interactable/table.tscn" id="12_fhxv8"]
 
@@ -24,9 +25,11 @@ script = ExtResource("4_w8s17")
 
 [node name="MainCharacter" parent="." instance=ExtResource("2_n4mgf")]
 position = Vector2(181, 220)
+POISE_DECAYRATE = 40.0
 
 [node name="Enemy" parent="." instance=ExtResource("4_a0ubh")]
 position = Vector2(652, 212)
+POISE_DECAYRATE = 5.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -47,14 +50,11 @@ position = Vector2(164, 85)
 [node name="Table2" parent="." instance=ExtResource("12_fhxv8")]
 position = Vector2(339, 85)
 
-[node name="Table4" parent="." instance=ExtResource("12_fhxv8")]
-position = Vector2(339, 85)
+[node name="ExplosiveBarrel" parent="." instance=ExtResource("8_4iboa")]
+position = Vector2(104, 164)
 
-[node name="Table5" parent="." instance=ExtResource("12_fhxv8")]
-position = Vector2(339, 85)
+[node name="ExplosiveBarrel2" parent="." instance=ExtResource("8_4iboa")]
+position = Vector2(193, 164)
 
-[node name="Table6" parent="." instance=ExtResource("12_fhxv8")]
-position = Vector2(339, 85)
-
-[node name="Table3" parent="." instance=ExtResource("12_fhxv8")]
-position = Vector2(503, 92)
+[node name="ExplosiveBarrel3" parent="." instance=ExtResource("8_4iboa")]
+position = Vector2(83, 233)

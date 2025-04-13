@@ -1,12 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://d3tj2p8wha3af"]
+[gd_scene load_steps=19 format=3 uid="uid://o15vhjsyonbr"]
 
-[ext_resource type="Script" uid="uid://bwbjxyfr5bp0v" path="res://scripts/units/MainCharacter.cs" id="1_g7ham"]
-[ext_resource type="Texture2D" uid="uid://cdqrjsw4533s1" path="res://art/characters/Bad guy spritesheet.png" id="2_3vau8"]
-[ext_resource type="Texture2D" uid="uid://d350mydql1osk" path="res://art/characters/hero.jpg" id="2_l0osn"]
-[ext_resource type="Script" uid="uid://dxix1g37alm8x" path="res://scripts/controller/EnemyController.cs" id="3_3vau8"]
-[ext_resource type="PackedScene" uid="uid://doo5bn45q67ch" path="res://assets/component/fist.tscn" id="4_svo2t"]
-[ext_resource type="PackedScene" uid="uid://cbjh68mlkf2cu" path="res://assets/component/poise_bar.tscn" id="5_hxkte"]
-[ext_resource type="PackedScene" uid="uid://behct2yx34lfw" path="res://assets/component/hurtboxSquare.tscn" id="6_l0osn"]
+[ext_resource type="Script" uid="uid://bwbjxyfr5bp0v" path="res://scripts/units/MainCharacter.cs" id="1_dvvrw"]
+[ext_resource type="Texture2D" uid="uid://cdqrjsw4533s1" path="res://art/characters/Bad guy spritesheet.png" id="2_2a1sh"]
+[ext_resource type="Texture2D" uid="uid://d350mydql1osk" path="res://art/characters/hero.jpg" id="3_1lr7c"]
+[ext_resource type="Script" uid="uid://dxix1g37alm8x" path="res://scripts/controller/EnemyController.cs" id="4_5xbje"]
+[ext_resource type="PackedScene" uid="uid://doo5bn45q67ch" path="res://assets/component/fist.tscn" id="5_jtli1"]
+[ext_resource type="PackedScene" uid="uid://cbjh68mlkf2cu" path="res://assets/component/poise_bar.tscn" id="6_ujcrq"]
+[ext_resource type="PackedScene" uid="uid://behct2yx34lfw" path="res://assets/component/hurtboxSquare.tscn" id="7_jtnij"]
 
 [sub_resource type="Animation" id="Animation_n2e48"]
 length = 0.001
@@ -99,15 +99,15 @@ _data = {
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_svo2t"]
-atlas = ExtResource("2_3vau8")
+atlas = ExtResource("2_2a1sh")
 region = Rect2(1280, 0, 640, 640)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxkte"]
-atlas = ExtResource("2_3vau8")
+atlas = ExtResource("2_2a1sh")
 region = Rect2(640, 0, 640, 640)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tsft8"]
-atlas = ExtResource("2_3vau8")
+atlas = ExtResource("2_2a1sh")
 region = Rect2(0, 0, 640, 640)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4iboa"]
@@ -123,7 +123,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_tsft8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_l0osn")
+"texture": ExtResource("3_1lr7c")
 }],
 "loop": true,
 "name": &"new_animation",
@@ -138,8 +138,8 @@ draw_center = false
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vau8"]
 bg_color = Color(0.823529, 0.415686, 0.0117647, 1)
 
-[node name="Enemy" type="CharacterBody2D"]
-script = ExtResource("1_g7ham")
+[node name="CrowbarEnemy" type="CharacterBody2D"]
+script = ExtResource("1_dvvrw")
 speed = 150
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -156,11 +156,11 @@ animation = &"new_animation"
 shape = SubResource("CircleShape2D_w2k4y")
 
 [node name="EnemyController" type="Node" parent="."]
-script = ExtResource("3_3vau8")
+script = ExtResource("4_5xbje")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="LeftFist" parent="." instance=ExtResource("4_svo2t")]
+[node name="LeftFist" parent="." instance=ExtResource("5_jtli1")]
 position = Vector2(-13, -8)
 
 [node name="AnimatedSprite2D" parent="LeftFist" index="1"]
@@ -168,13 +168,13 @@ scale = Vector2(0.6, 0.6)
 
 [node name="RightElbow" type="Node2D" parent="."]
 
-[node name="RightFist" parent="RightElbow" instance=ExtResource("4_svo2t")]
+[node name="RightFist" parent="RightElbow" instance=ExtResource("5_jtli1")]
 position = Vector2(13, -8)
 
 [node name="AnimatedSprite2D" parent="RightElbow/RightFist" index="1"]
 scale = Vector2(0.6, 0.6)
 
-[node name="PoiseBar" parent="." instance=ExtResource("5_hxkte")]
+[node name="PoiseBar" parent="." instance=ExtResource("6_ujcrq")]
 offset_left = -3.0
 offset_top = -41.0
 offset_right = 1.0
@@ -184,7 +184,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_l0osn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_3vau8")
 step = 0.1
 
-[node name="Hurtbox" parent="." instance=ExtResource("6_l0osn")]
+[node name="Hurtbox" parent="." instance=ExtResource("7_jtnij")]
 position = Vector2(0, -3)
 scale = Vector2(1.6771, 1.33455)
 
