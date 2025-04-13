@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://c62plilmy2mxt"]
+
+[ext_resource type="Script" uid="uid://c8883r0e8nsen" path="res://scripts/units/Character.cs" id="1_cjd6i"]
+[ext_resource type="Texture2D" uid="uid://c14vyxhylwcmh" path="res://art/characters/hand.jpg" id="2_em8uu"]
+[ext_resource type="Script" uid="uid://bcsfogtiyiscq" path="res://scripts/components/Hitbox.cs" id="3_ow8ac"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3mq1s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jm2hm"]
+
+[node name="PunchingBag" type="CharacterBody2D"]
+floor_constant_speed = true
+script = ExtResource("1_cjd6i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3mq1s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("2_em8uu")
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("3_ow8ac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_jm2hm")

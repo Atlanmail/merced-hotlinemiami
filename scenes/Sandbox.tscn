@@ -1,124 +1,12 @@
-[gd_scene load_steps=21 format=4 uid="uid://du7fv2o3yevyi"]
+[gd_scene load_steps=8 format=4 uid="uid://du7fv2o3yevyi"]
 
 [ext_resource type="TileSet" uid="uid://bjon0v57fcjwb" path="res://assets/tileset/room_builder.tres" id="1_vn80e"]
 [ext_resource type="PackedScene" uid="uid://yk4dvrhyosg4" path="res://assets/units/main_character.tscn" id="2_n4mgf"]
-[ext_resource type="Script" uid="uid://bwbjxyfr5bp0v" path="res://scripts/units/MainCharacter.cs" id="4_48n3s"]
+[ext_resource type="PackedScene" uid="uid://d3tj2p8wha3af" path="res://assets/units/enemy.tscn" id="4_a0ubh"]
 [ext_resource type="Script" uid="uid://dvj38a56xot1l" path="res://scripts/interactables/Buildings.cs" id="4_w8s17"]
-[ext_resource type="Texture2D" uid="uid://d350mydql1osk" path="res://art/characters/hero.jpg" id="5_fhxv8"]
-[ext_resource type="Script" uid="uid://c8883r0e8nsen" path="res://scripts/units/Character.cs" id="5_jm2hm"]
-[ext_resource type="Texture2D" uid="uid://c14vyxhylwcmh" path="res://art/characters/hand.jpg" id="6_a0ubh"]
-[ext_resource type="Script" uid="uid://dxix1g37alm8x" path="res://scripts/controller/EnemyController.cs" id="6_xw5yf"]
-[ext_resource type="PackedScene" uid="uid://doo5bn45q67ch" path="res://assets/component/fist.tscn" id="7_n6hjk"]
-[ext_resource type="Script" uid="uid://bcsfogtiyiscq" path="res://scripts/components/Hitbox.cs" id="8_4iboa"]
-[ext_resource type="PackedScene" uid="uid://dooeumkq6t0sq" path="res://assets/component/poise_bar.tscn" id="8_48n3s"]
+[ext_resource type="PackedScene" uid="uid://c62plilmy2mxt" path="res://assets/interactable/punching_bag.tscn" id="6_4iboa"]
+[ext_resource type="PackedScene" uid="uid://cbjh68mlkf2cu" path="res://assets/component/poise_bar.tscn" id="8_48n3s"]
 [ext_resource type="PackedScene" uid="uid://d0t8mdhm2ccd7" path="res://assets/interactable/table.tscn" id="12_fhxv8"]
-
-[sub_resource type="Animation" id="Animation_n2e48"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LeftFist:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-13, -8)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RightElbow/RightFist:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(13, -8)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("RightElbow:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_l6bvi"]
-resource_name = "left_punch"
-length = 0.433337
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LeftFist:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.233333, 0.433333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-13, -8), Vector2(-13, -23), Vector2(-13, -8)]
-}
-
-[sub_resource type="Animation" id="Animation_x6a0n"]
-resource_name = "right_grab"
-length = 0.433337
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RightElbow/RightFist:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.433333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(13, -8), Vector2(19.56, -8.3), Vector2(13, -8)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RightElbow:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.433333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, -0.785398, 0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_n2e48"]
-_data = {
-&"RESET": SubResource("Animation_n2e48"),
-&"left_punch": SubResource("Animation_l6bvi"),
-&"right_grab": SubResource("Animation_x6a0n")
-}
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_4iboa"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_fhxv8")
-}],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_w2k4y"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_3mq1s"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_jm2hm"]
 
 [node name="Root" type="Node2D"]
 
@@ -137,70 +25,31 @@ script = ExtResource("4_w8s17")
 [node name="MainCharacter" parent="." instance=ExtResource("2_n4mgf")]
 position = Vector2(181, 220)
 
-[node name="Enemy" type="CharacterBody2D" parent="."]
+[node name="Enemy" parent="." instance=ExtResource("4_a0ubh")]
 position = Vector2(652, 212)
-script = ExtResource("4_48n3s")
-speed = 150
-poise = 0.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy"]
-libraries = {
-&"": SubResource("AnimationLibrary_n2e48")
-}
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
-position = Vector2(0, 1)
-scale = Vector2(0.5625, 0.5625)
-sprite_frames = SubResource("SpriteFrames_4iboa")
-animation = &"new_animation"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-shape = SubResource("CircleShape2D_w2k4y")
-
-[node name="EnemyController" type="Node" parent="Enemy"]
-script = ExtResource("6_xw5yf")
-
-[node name="Camera2D" type="Camera2D" parent="Enemy"]
-
-[node name="LeftFist" parent="Enemy" instance=ExtResource("7_n6hjk")]
-position = Vector2(-13, -8)
-
-[node name="RightElbow" type="Node2D" parent="Enemy"]
-
-[node name="RightFist" parent="Enemy/RightElbow" instance=ExtResource("7_n6hjk")]
-position = Vector2(13, -8)
-
-[node name="PoiseBar" parent="Enemy" instance=ExtResource("8_48n3s")]
-offset_left = -2.0
-offset_top = -33.0
-offset_right = 2.0
-offset_bottom = -6.0
-scale = Vector2(13.985, 0.505302)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PoiseBar" parent="CanvasLayer" node_paths=PackedStringArray("defaultCharacterPoise") instance=ExtResource("8_48n3s")]
 defaultCharacterPoise = NodePath("../../MainCharacter")
 
-[node name="PunchingBag" type="CharacterBody2D" parent="."]
+[node name="PunchingBag" parent="." instance=ExtResource("6_4iboa")]
 position = Vector2(215, 122)
-floor_constant_speed = true
-script = ExtResource("5_jm2hm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PunchingBag"]
-shape = SubResource("CircleShape2D_3mq1s")
-
-[node name="Sprite2D" type="Sprite2D" parent="PunchingBag"]
-scale = Vector2(1.8, 1.8)
-texture = ExtResource("6_a0ubh")
-
-[node name="Hitbox" type="Area2D" parent="PunchingBag"]
-script = ExtResource("8_4iboa")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PunchingBag/Hitbox"]
-shape = SubResource("CircleShape2D_jm2hm")
 
 [node name="Table" parent="." instance=ExtResource("12_fhxv8")]
+position = Vector2(164, 85)
 
-[editable path="Enemy/LeftFist"]
-[editable path="Enemy/RightElbow/RightFist"]
+[node name="Table2" parent="." instance=ExtResource("12_fhxv8")]
+position = Vector2(339, 85)
+
+[node name="Table4" parent="." instance=ExtResource("12_fhxv8")]
+position = Vector2(339, 85)
+
+[node name="Table5" parent="." instance=ExtResource("12_fhxv8")]
+position = Vector2(339, 85)
+
+[node name="Table6" parent="." instance=ExtResource("12_fhxv8")]
+position = Vector2(339, 85)
+
+[node name="Table3" parent="." instance=ExtResource("12_fhxv8")]
+position = Vector2(503, 92)
