@@ -1,10 +1,26 @@
-[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://dd0bch5dvc6ns"]
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://dd0bch5dvc6ns"]
 
+[ext_resource type="Texture2D" uid="uid://b6dtklqprmu3e" path="res://art/items/Objects.png" id="1_fb72v"]
 [ext_resource type="Texture2D" uid="uid://c14vyxhylwcmh" path="res://art/characters/hand.jpg" id="1_xm34o"]
+[ext_resource type="Texture2D" uid="uid://wepd1o36odmi" path="res://art/items/Items .png" id="2_uqj8g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqj8g"]
+atlas = ExtResource("1_fb72v")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs43y"]
+atlas = ExtResource("2_uqj8g")
+region = Rect2(1280, 0, 640, 640)
 
 [resource]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqj8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cs43y")
+}, {
 "duration": 1.0,
 "texture": ExtResource("1_xm34o")
 }],
